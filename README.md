@@ -1,8 +1,8 @@
 # Olá! Eu sou o Silva
 
-- Desenvolvedor Front-End
-- Apaixonado por UX/UI Design
-- Atualmente estudando React e TypeScript
+Atualmente sou iniciante 
+  Estudando, java scritp e payton
+  Focado em ser freelance
 
 ## Conecte-se comigo
 [LinkedIn](https://linkedin.com/in/seu-usuario) | [Portfólio](https://seusite.com)
