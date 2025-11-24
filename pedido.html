@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Acompanhe seu pedido La Hamburguesa em tempo real. Rastreamento de entrega e status do pedido.">
+  <meta name="keywords" content="pedido, rastreamento, entrega, La Hamburguesa, delivery">
+  <title>Rastreamento de Pedido - La Hamburguesa</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<script src="carrinho.js"></script>
+<body class="theme-spacex">
+  <nav class="spacex-nav" role="navigation" aria-label="Menu principal">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.svg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="cardapio.html">CARDÁPIO</a>
+        <a href="pedido.html">PEDIDO</a>
+        <a href="login.html">LOGIN</a>
+        <a href="cadastro.html">CADASTRO</a>
+      </div>
+      <button class="nav-menu-toggle" aria-label="Menu mobile">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main role="main" class="pedido-main">
+    <div class="pedido-container">
+      <div class="pedido-header">
+        <h1 class="pedido-title">📦 Acompanhe Seu Pedido</h1>
+        <p class="pedido-subtitle">Rastreamento em tempo real do seu pedido La Hamburguesa</p>
+      </div>
+
+      <!-- Status do Pedido -->
+      <div class="order-status-card" role="region" aria-label="Status do pedido">
+        <div class="order-header">
+          <div class="order-number">
+            <span class="order-label">Pedido #</span>
+            <span class="order-id" id="orderId">LAH-2025-001</span>
+          </div>
+          <div class="order-time">
+            <span class="time-icon">🕐</span>
+            <span id="orderTime">Há 5 minutos</span>
+          </div>
+        </div>
+
+        <!-- Timeline de Status -->
+        <div class="status-timeline">
+          <div class="timeline-item active" id="timeline-1">
+            <div class="timeline-marker">
+              <div class="marker-inner"></div>
+            </div>
+            <div class="timeline-content">
+              <h3>Pedido Confirmado</h3>
+              <p>Seu pedido foi recebido e está sendo preparado</p>
+              <span class="timeline-time">Agora</span>
+            </div>
+          </div>
+
+          <div class="timeline-item" id="timeline-2">
+            <div class="timeline-marker">
+              <div class="marker-inner"></div>
+            </div>
+            <div class="timeline-content">
+              <h3>Em Preparação</h3>
+              <p>Nossos chefs estão preparando seu hambúrguer</p>
+              <span class="timeline-time">Em breve</span>
+            </div>
+          </div>
+
+          <div class="timeline-item" id="timeline-3">
+            <div class="timeline-marker">
+              <div class="marker-inner"></div>
+            </div>
+            <div class="timeline-content">
+              <h3>Saiu para Entrega</h3>
+              <p>Seu pedido está a caminho</p>
+              <span class="timeline-time">Em breve</span>
+            </div>
+          </div>
+
+          <div class="timeline-item" id="timeline-4">
+            <div class="timeline-marker">
+              <div class="marker-inner"></div>
+            </div>
+            <div class="timeline-content">
+              <h3>Entregue</h3>
+              <p>Pedido entregue com sucesso!</p>
+              <span class="timeline-time">Em breve</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detalhes do Pedido -->
+      <div class="order-details-card">
+        <h2 class="details-title">🍔 Detalhes do Pedido</h2>
+        <div class="order-items" id="orderItems">
+          <!-- Itens serão carregados dinamicamente -->
+        </div>
+        <div class="order-summary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotal">R$ 0,00</span>
+          </div>
+          <div class="summary-row">
+            <span>Taxa de Entrega</span>
+            <span id="deliveryFee">R$ 5,00</span>
+          </div>
+          <div class="summary-row total-row">
+            <span>Total</span>
+            <span id="orderTotal">R$ 0,00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informações de Entrega -->
+      <div class="delivery-info-card">
+        <h2 class="delivery-title">📍 Informações de Entrega</h2>
+        <div class="delivery-details">
+          <div class="delivery-item">
+            <span class="delivery-icon">📍</span>
+            <div class="delivery-text">
+              <strong>Endereço</strong>
+              <p id="deliveryAddress">Carregando endereço...</p>
+            </div>
+          </div>
+          <div class="delivery-item">
+            <span class="delivery-icon">👤</span>
+            <div class="delivery-text">
+              <strong>Entregador</strong>
+              <p id="deliveryPerson">Aguardando atribuição...</p>
+            </div>
+          </div>
+          <div class="delivery-item">
+            <span class="delivery-icon">📱</span>
+            <div class="delivery-text">
+              <strong>Contato</strong>
+              <p id="deliveryContact">(11) 99999-9999</p>
+            </div>
+          </div>
+        </div>
+        <div class="delivery-map" id="deliveryMap">
+          <div class="map-placeholder">
+            <span class="map-icon">🗺️</span>
+            <p>Mapa de rastreamento</p>
+            <small>Localização será atualizada em tempo real</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ações -->
+      <div class="order-actions">
+        <button class="btn btn-secondary" onclick="refreshOrder()" aria-label="Atualizar status">
+          <span>🔄</span> Atualizar Status
+        </button>
+        <button class="btn btn-primary" onclick="contactSupport()" aria-label="Falar com suporte">
+          <span>💬</span> Falar com Suporte
+        </button>
+      </div>
+
+      <!-- Mensagem de Status -->
+      <div class="status-message" id="statusMessage" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <footer class="spacex-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="cardapio.html">CARDÁPIO</a>
+        <a href="pedido.html">PEDIDO</a>
+        <a href="login.html">LOGIN</a>
+        <a href="cadastro.html">CADASTRO</a>
+      </div>
+      <p class="footer-copyright">© 2025 LA HAMBURGUESA. TODOS OS DIREITOS RESERVADOS.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Estados do pedido
+    const orderStates = [
+      { id: 1, name: 'Pedido Confirmado', time: 'Agora' },
+      { id: 2, name: 'Em Preparação', time: 'Em 5-10 min' },
+      { id: 3, name: 'Saiu para Entrega', time: 'Em 15-20 min' },
+      { id: 4, name: 'Entregue', time: 'Concluído' }
+    ];
+
+    let currentState = 1;
+    let orderData = null;
+
+    // Carregar dados do pedido do localStorage
+    function loadOrderData() {
+      const savedCart = localStorage.getItem('lahamburguesaCart');
+      const savedOrder = localStorage.getItem('lahamburguesaOrder');
+      
+      if (savedOrder) {
+        orderData = JSON.parse(savedOrder);
+        currentState = orderData.status || 1;
+        displayOrderData();
+      } else if (savedCart) {
+        // Criar pedido a partir do carrinho
+        const cart = JSON.parse(savedCart);
+        createOrderFromCart(cart);
+      } else {
+        // Dados de exemplo
+        orderData = {
+          id: 'LAH-2025-001',
+          items: [
+            { name: 'La Hamburguesa Clássico', quantity: 1, price: 25.00 },
+            { name: 'Refrigerante Lata', quantity: 1, price: 5.00 },
+            { name: 'Batata Frita', quantity: 1, price: 12.00 }
+          ],
+          subtotal: 42.00,
+          deliveryFee: 5.00,
+          total: 47.00,
+          address: 'Rua do Sabor, 123 - Centro',
+          status: 1,
+          timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('lahamburguesaOrder', JSON.stringify(orderData));
+        displayOrderData();
+      }
+      
+      updateTimeline();
+      startAutoUpdate();
+    }
+
+    function createOrderFromCart(cart) {
+      let subtotal = 0;
+      const items = [];
+      
+      Object.keys(cart).forEach(id => {
+        const item = cart[id];
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        items.push({
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price
+        });
+      });
+
+      orderData = {
+        id: 'LAH-' + Date.now(),
+        items: items,
+        subtotal: subtotal,
+        deliveryFee: 5.00,
+        total: subtotal + 5.00,
+        address: 'Endereço do pedido',
+        status: 1,
+        timestamp: new Date().toISOString()
+      };
+      
+      localStorage.setItem('lahamburguesaOrder', JSON.stringify(orderData));
+      displayOrderData();
+    }
+
+    function displayOrderData() {
+      if (!orderData) return;
+
+      // Atualizar ID do pedido
+      document.getElementById('orderId').textContent = orderData.id;
+
+      // Atualizar itens
+      const itemsContainer = document.getElementById('orderItems');
+      itemsContainer.innerHTML = '';
+      orderData.items.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'order-item';
+        itemElement.innerHTML = `
+          <div class="item-info">
+            <span class="item-name">${item.name}</span>
+            <span class="item-quantity">x${item.quantity}</span>
+          </div>
+          <span class="item-price">R$ ${(item.price * item.quantity).toFixed(2)}</span>
+        `;
+        itemsContainer.appendChild(itemElement);
+      });
+
+      // Atualizar totais
+      document.getElementById('subtotal').textContent = `R$ ${orderData.subtotal.toFixed(2)}`;
+      document.getElementById('deliveryFee').textContent = `R$ ${orderData.deliveryFee.toFixed(2)}`;
+      document.getElementById('orderTotal').textContent = `R$ ${orderData.total.toFixed(2)}`;
+
+      // Atualizar endereço
+      if (orderData.address) {
+        document.getElementById('deliveryAddress').textContent = orderData.address;
+      }
+
+      // Atualizar tempo
+      updateOrderTime();
+    }
+
+    function updateOrderTime() {
+      if (!orderData || !orderData.timestamp) return;
+      
+      const orderDate = new Date(orderData.timestamp);
+      const now = new Date();
+      const diffMinutes = Math.floor((now - orderDate) / 60000);
+      
+      let timeText = 'Agora';
+      if (diffMinutes > 0) {
+        if (diffMinutes === 1) {
+          timeText = 'Há 1 minuto';
+        } else if (diffMinutes < 60) {
+          timeText = `Há ${diffMinutes} minutos`;
+        } else {
+          const hours = Math.floor(diffMinutes / 60);
+          timeText = `Há ${hours} ${hours === 1 ? 'hora' : 'horas'}`;
+        }
+      }
+      
+      document.getElementById('orderTime').textContent = timeText;
+    }
+
+    function updateTimeline() {
+      for (let i = 1; i <= 4; i++) {
+        const timelineItem = document.getElementById(`timeline-${i}`);
+        if (i < currentState) {
+          timelineItem.classList.add('completed');
+          timelineItem.classList.remove('active');
+        } else if (i === currentState) {
+          timelineItem.classList.add('active');
+          timelineItem.classList.remove('completed');
+        } else {
+          timelineItem.classList.remove('active', 'completed');
+        }
+      }
+
+      // Atualizar entregador baseado no status
+      if (currentState >= 3) {
+        document.getElementById('deliveryPerson').textContent = 'João Silva - Em rota';
+      } else {
+        document.getElementById('deliveryPerson').textContent = 'Aguardando atribuição...';
+      }
+    }
+
+    function refreshOrder() {
+      const messageDiv = document.getElementById('statusMessage');
+      messageDiv.innerHTML = '<div class="loading-message">🔄 Atualizando status do pedido...</div>';
+      
+      setTimeout(() => {
+        // Simular atualização de status
+        if (currentState < 4) {
+          currentState++;
+          orderData.status = currentState;
+          localStorage.setItem('lahamburguesaOrder', JSON.stringify(orderData));
+          updateTimeline();
+          messageDiv.innerHTML = '<div class="success-message">✅ Status atualizado com sucesso!</div>';
+        } else {
+          messageDiv.innerHTML = '<div class="info-message">✅ Pedido já foi entregue!</div>';
+        }
+        
+        setTimeout(() => {
+          messageDiv.innerHTML = '';
+        }, 3000);
+      }, 1000);
+    }
+
+    function contactSupport() {
+      const phone = '11999999999';
+      const message = encodeURIComponent('Olá, preciso de ajuda com meu pedido!');
+      window.open(`https://wa.me/55${phone}?text=${message}`, '_blank');
+    }
+
+    function startAutoUpdate() {
+      // Atualizar automaticamente a cada 30 segundos
+      setInterval(() => {
+        updateOrderTime();
+        // Simular progresso automático (apenas para demonstração)
+        if (currentState < 4 && Math.random() > 0.7) {
+          currentState++;
+          orderData.status = currentState;
+          localStorage.setItem('lahamburguesaOrder', JSON.stringify(orderData));
+          updateTimeline();
+        }
+      }, 30000);
+    }
+
+    // Inicializar quando a página carregar
+    document.addEventListener('DOMContentLoaded', loadOrderData);
+  </script>
+</body>
+</html>

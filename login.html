@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Faça login na La Hamburguesa - Acesse sua conta para pedidos rápidos e acompanhamento de entregas.">
+  <meta name="keywords" content="login, La Hamburguesa, conta, acesso, autenticação">
+  <title>Login - La Hamburguesa</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<script src="carrinho.js"></script>
+<body class="theme-spacex">
+  <nav class="spacex-nav" role="navigation" aria-label="Menu principal">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.svg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="cardapio.html">CARDÁPIO</a>
+        <a href="pedido.html">PEDIDO</a>
+        <a href="login.html">LOGIN</a>
+        <a href="cadastro.html">CADASTRO</a>
+      </div>
+      <button class="nav-menu-toggle" aria-label="Menu mobile">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main role="main">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h2>🔐 Fazer Login</h2>
+          <p>Entre na sua conta para pedidos mais rápidos</p>
+          <div class="login-info">
+            <p>✨ Acesse sua conta e aproveite:</p>
+            <ul>
+              <li>📦 Histórico de pedidos</li>
+              <li>🎁 Ofertas exclusivas</li>
+              <li>⚡ Pedidos mais rápidos</li>
+              <li>💳 Pagamento salvo</li>
+              <li>⭐ Programa de fidelidade</li>
+            </ul>
+          </div>
+        </div>
+
+        <form class="auth-form" id="loginForm" role="form" aria-label="Formulário de login">
+          <div class="form-group">
+            <label for="email-login">E-mail</label>
+            <input type="email" id="email-login" name="email" required aria-describedby="email-login-error" placeholder="seu@email.com">
+            <span id="email-login-error" class="error-message" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="senha-login">Senha</label>
+            <div class="password-input">
+              <input type="password" id="senha-login" name="senha" required aria-describedby="senha-login-error" placeholder="Sua senha">
+              <button type="button" class="toggle-password" onclick="togglePassword('senha-login')" aria-label="Mostrar/ocultar senha">
+                👁️
+              </button>
+            </div>
+            <span id="senha-login-error" class="error-message" aria-live="polite"></span>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="lembrar-login" name="lembrar">
+              <span class="checkmark"></span>
+              Lembrar de mim
+            </label>
+            <a href="#" class="forgot-password" aria-label="Esqueci minha senha">Esqueci minha senha</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Não tem uma conta? <a href="cadastro.html" aria-label="Criar nova conta">Cadastre-se aqui</a></p>
+        </div>
+
+        <!-- Links rápidos -->
+        <div class="quick-links">
+          <a href="cardapio.html" class="btn btn-primary btn-full btn-large">🍔 VER CARDÁPIO</a>
+          <a href="index.html#sobre" class="btn btn-secondary btn-full btn-large">📖 SABIA MAIS</a>
+        </div>
+
+        <!-- Opção de continuar como visitante -->
+        <div class="visitor-option">
+          <a href="cardapio.html" class="btn btn-tertiary btn-full">Continuar como Visitante</a>
+        </div>
+
+        <!-- Login rápido para demonstração -->
+        <div class="demo-login">
+          <details>
+            <summary class="demo-summary">🔧 Ferramentas de Desenvolvimento</summary>
+            <div class="demo-content">
+          <p>Use estas credenciais para testar:</p>
+          <div class="demo-credentials">
+            <p><strong>E-mail:</strong> demo@lahamburguesa.com</p>
+            <p><strong>Senha:</strong> demo123</p>
+          </div>
+              <button type="button" class="btn btn-secondary btn-small" onclick="preencherDemo()">Usar Credenciais Demo</button>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© 2025 La Hamburguesa — Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    // Validação do formulário de login
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (validarLogin()) {
+        // Simular login
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Entrando...';
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          alert('✅ Login realizado com sucesso!\n\nBem-vindo de volta à La Hamburguesa!');
+          window.location.href = 'index.html';
+        }, 1500);
+      }
+    });
+
+    function validarLogin() {
+      let valido = true;
+      
+      // Limpar erros anteriores
+      document.querySelectorAll('.error-message').forEach(error => {
+        error.textContent = '';
+      });
+
+      const email = document.getElementById('email-login').value;
+      const senha = document.getElementById('senha-login').value;
+
+      // Validar email
+      if (!email.trim()) {
+        mostrarErro('email-login', 'E-mail é obrigatório');
+        valido = false;
+      } else if (!validarEmail(email)) {
+        mostrarErro('email-login', 'E-mail inválido');
+        valido = false;
+      }
+
+      // Validar senha
+      if (!senha.trim()) {
+        mostrarErro('senha-login', 'Senha é obrigatória');
+        valido = false;
+      } else if (senha.length < 6) {
+        mostrarErro('senha-login', 'Senha deve ter pelo menos 6 caracteres');
+        valido = false;
+      }
+
+      return valido;
+    }
+
+    function mostrarErro(campo, mensagem) {
+      const errorElement = document.getElementById(campo + '-error');
+      errorElement.textContent = mensagem;
+    }
+
+    function validarEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function togglePassword(inputId) {
+      const input = document.getElementById(inputId);
+      const button = input.nextElementSibling;
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        button.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        button.textContent = '👁️';
+      }
+    }
+
+    function preencherDemo() {
+      document.getElementById('email-login').value = 'demo@lahamburguesa.com';
+      document.getElementById('senha-login').value = 'demo123';
+    }
+  </script>
+</body>
+</html>
+
+

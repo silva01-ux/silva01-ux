@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="La Hamburguesa - Os melhores hambúrgueres artesanais da cidade. Sabor, qualidade e tradição em cada mordida.">
+  <meta name="keywords" content="hambúrguer, lanchonete, delivery, La Hamburguesa, comida artesanal">
+  <title>La Hamburguesa - Os Melhores Hambúrgueres da Cidade</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<script src="carrinho.js"></script>
+<body>
+  <!-- Navegação Minimalista -->
+  <nav class="spacex-nav" role="navigation" aria-label="Menu principal">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.svg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="cardapio.html">CARDÁPIO</a>
+        <a href="pedido.html">PEDIDO</a>
+        <a href="login.html">LOGIN</a>
+        <a href="#sobre">SOBRE</a>
+        <a href="#contato">CONTATO</a>
+      </div>
+      <button class="nav-menu-toggle" aria-label="Menu mobile">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main role="main">
+    <!-- Hero Section -->
+    <section class="hero-section" aria-labelledby="hero-title">
+      <div class="hero-background">
+        <video class="hero-video" muted loop playsinline preload="none" poster="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=1920&auto=format&fit=crop" style="display: none;" aria-label="Vídeo de preparação de hambúrguer artesanal">
+          <source src="https://cdn.coverr.co/videos/coverr-burger-preparation-2603/720p.mp4" type="video/mp4">
+        </video>
+        <div class="hero-particles"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-logo-container">
+          <img src="logo.svg" alt="LA HAMBURGUESA Logo" class="hero-logo">
+        </div>
+        <div class="hero-badge">
+          <span class="badge-text">NOVO</span>
+        </div>
+        <h1 id="hero-title" class="hero-title">
+          <span class="title-line-1">La</span>
+          <span class="title-line-2">Hamburguesa</span>
+        </h1>
+        <p class="hero-subtitle">O verdadeiro sabor do hambúrguer artesanal</p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">5000+</span>
+            <span class="stat-label">Clientes Satisfeitos</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Artesanal</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number">24h</span>
+            <span class="stat-label">Disponível</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="cardapio.html" class="btn-hero btn-primary-hero">
+            <span class="btn-text">Ver Cardápio</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#sobre" class="btn-hero btn-secondary-hero">
+            <span class="btn-text">Saiba Mais</span>
+            <span class="btn-arrow">↓</span>
+          </a>
+        </div>
+      </div>
+      <div class="scroll-indicator" aria-label="Role para baixo para ver mais conteúdo">
+        <div class="scroll-text">Scroll</div>
+        <div class="scroll-arrow"></div>
+      </div>
+      
+      </div>
+    </section>
+
+    <!-- Sobre Nós -->
+    <section id="sobre" class="feature-section" aria-labelledby="sobre-title">
+      <div class="section-container">
+        <h2 id="sobre-title" class="section-title">
+          <span class="title-number">01</span>
+          <span class="title-text">Sobre Nós</span>
+        </h2>
+        <div class="section-content">
+          <div class="feature-grid">
+            <div class="feature-item">
+              <div class="feature-icon">🍔</div>
+              <h3 class="feature-heading">Artesanal</h3>
+              <p class="feature-description">Cada hambúrguer é feito à mão com ingredientes selecionados e receitas exclusivas que garantem o sabor autêntico.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🥩</div>
+              <h3 class="feature-heading">Qualidade Premium</h3>
+              <p class="feature-description">Carne 100% bovina, suculenta e grelhada na medida certa. Nosso compromisso é com a excelência em cada detalhe.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🌱</div>
+              <h3 class="feature-heading">Ingredientes Frescos</h3>
+              <p class="feature-description">Alface crocante, tomates selecionados e molhos especiais preparados diariamente para garantir o melhor sabor.</p>
+            </div>
+          </div>
+          <div class="mission-text">
+            <p>Na La Hamburguesa, nossa missão é simples: entregar o verdadeiro sabor do hambúrguer artesanal. Não fazemos comida rápida — fazemos comida com paixão, respeito e tradição.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Destaques -->
+    <section class="highlights-section">
+      <div class="section-container">
+        <h2 class="section-title">
+          <span class="title-number">02</span>
+          <span class="title-text">Nosso Diferencial</span>
+        </h2>
+        <div class="highlights-grid">
+          <div class="highlight-card">
+            <div class="highlight-value">100%</div>
+            <div class="highlight-label">ARTESANAL</div>
+            <div class="highlight-description">Feito à mão, todos os dias</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-value">24h</div>
+            <div class="highlight-label">DISPONÍVEL</div>
+            <div class="highlight-description">Delivery rápido e eficiente</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-value">5000+</div>
+            <div class="highlight-label">CLIENTES</div>
+            <div class="highlight-description">Satisfeitos com nosso sabor</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-value">50+</div>
+            <div class="highlight-label">OPÇÕES</div>
+            <div class="highlight-description">Para todos os gostos</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="contact-section" aria-labelledby="contato-title">
+      <div class="section-container">
+        <h2 id="contato-title" class="section-title">
+          <span class="title-number">03</span>
+          <span class="title-text">Contato</span>
+        </h2>
+        <div class="contact-grid">
+          <div class="contact-info-card">
+            <h3 class="contact-heading">Estamos Aqui</h3>
+            <div class="contact-details">
+              <p class="contact-item">
+                <span class="contact-icon">📍</span>
+                <span>Rua do Sabor, 123 - Centro</span>
+              </p>
+              <p class="contact-item">
+                <span class="contact-icon">📞</span>
+                <a href="tel:+5511999999999">(11) 99999-9999</a>
+              </p>
+              <p class="contact-item">
+                <span class="contact-icon">📧</span>
+                <a href="mailto:contato@lahamburguesa.com">contato@lahamburguesa.com</a>
+              </p>
+            </div>
+          </div>
+          <div class="contact-form-card">
+            <h3 class="contact-heading">Deixe sua Mensagem</h3>
+            <form id="messageForm" class="contact-form">
+              <div class="form-group">
+                <input type="text" id="messageName" name="name" required placeholder="SEU NOME" class="form-input">
+              </div>
+              <div class="form-group">
+                <textarea id="messageText" name="message" rows="6" required placeholder="SUA MENSAGEM" class="form-input form-textarea"></textarea>
+              </div>
+              <button type="submit" class="btn-hero btn-primary-hero">Enviar Mensagem</button>
+            </form>
+            <div id="messageStatus" class="message-status"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="spacex-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="cardapio.html">CARDÁPIO</a>
+        <a href="pedido.html">PEDIDO</a>
+        <a href="login.html">LOGIN</a>
+        <a href="cadastro.html">CADASTRO</a>
+      </div>
+      <p class="footer-copyright">© 2025 LA HAMBURGUESA. TODOS OS DIREITOS RESERVADOS.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll suave para links âncora
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Navbar scroll effect
+    const navbar = document.querySelector('.spacex-nav');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      
+      lastScroll = currentScroll;
+    });
+
+    // Intersection Observer para animações
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observar elementos para animação
+    document.querySelectorAll('.feature-item, .highlight-card, .contact-info-card, .contact-form-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+
+    // Video placeholder interaction - Funcionalidade completa
+    const videoPlaceholder = document.querySelector('.video-placeholder');
+    const heroVideo = document.querySelector('.hero-video');
+    if (videoPlaceholder && heroVideo) {
+      let isPlaying = false;
+      
+      videoPlaceholder.addEventListener('click', function() {
+        if (!isPlaying) {
+          // Carregar vídeo apenas após interação
+          if (heroVideo.readyState === 0) {
+            heroVideo.load();
+          }
+          heroVideo.style.display = 'block';
+          heroVideo.play().catch(err => {
+            console.log('Erro ao reproduzir vídeo:', err);
+            videoPlaceholder.style.display = 'flex';
+          });
+          videoPlaceholder.style.display = 'none';
+          isPlaying = true;
+        }
+      });
+      
+      // Permitir pausar/retomar o vídeo
+      heroVideo.addEventListener('click', function() {
+        if (heroVideo.paused) {
+          heroVideo.play();
+        } else {
+          heroVideo.pause();
+        }
+      });
+      
+      // Mostrar placeholder novamente quando o vídeo terminar
+      heroVideo.addEventListener('ended', function() {
+        videoPlaceholder.style.display = 'flex';
+        heroVideo.style.display = 'none';
+        isPlaying = false;
+      });
+    }
+
+    // Sistema de Mensagens Funcional
+    document.getElementById('messageForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.querySelector('#messageForm button[type="submit"]');
+      const statusDiv = document.getElementById('messageStatus');
+      const originalText = submitBtn.textContent;
+      
+      // Mostrar loading
+      submitBtn.textContent = 'ENVIANDO...';
+      submitBtn.disabled = true;
+      statusDiv.innerHTML = '';
+      
+      // Coletar dados do formulário
+      const formData = {
+        name: document.getElementById('messageName').value,
+        message: document.getElementById('messageText').value,
+        timestamp: new Date().toLocaleString('pt-BR'),
+        to_email: 'djazeitona289@gmail.com'
+      };
+      
+      // Simular envio de email (funcional)
+      setTimeout(() => {
+        try {
+          // Salvar mensagem no localStorage para demonstração
+          const messages = JSON.parse(localStorage.getItem('lahamburguesaMessages') || '[]');
+          messages.push(formData);
+          localStorage.setItem('lahamburguesaMessages', JSON.stringify(messages));
+          
+          // Simular envio real via mailto (funciona em todos os navegadores)
+          const subject = `Nova mensagem do site La Hamburguesa - ${formData.name}`;
+          const body = `Nome: ${formData.name}\n\nMensagem:\n${formData.message}\n\nEnviado em: ${formData.timestamp}`;
+          const mailtoLink = `mailto:${formData.to_email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          
+          // Abrir cliente de email
+          window.open(mailtoLink, '_blank');
+          
+          // Mostrar sucesso
+          statusDiv.innerHTML = '<div class="success-message">✅ Mensagem preparada! Seu cliente de email foi aberto. Envie a mensagem para completar o envio.</div>';
+          document.getElementById('messageForm').reset();
+          
+          console.log('Mensagem salva:', formData);
+          
+        } catch (error) {
+          console.error('Erro ao processar mensagem:', error);
+          statusDiv.innerHTML = '<div class="error-message">❌ Erro ao processar mensagem. Tente novamente.</div>';
+        } finally {
+          // Restaurar botão
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      }, 1500); // Simular delay de envio
+    });
+
+    // Função para ver mensagens salvas (para administração)
+    function verMensagens() {
+      const messages = JSON.parse(localStorage.getItem('lahamburguesaMessages') || '[]');
+      console.log('Mensagens salvas:', messages);
+      return messages;
+    }
+
+    // Disponibilizar função globalmente para debug
+    window.verMensagens = verMensagens;
+
+    // Menu Mobile Toggle
+    const navMenuToggle = document.querySelector('.nav-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (navMenuToggle && navLinks) {
+      navMenuToggle.addEventListener('click', function() {
+        navMenuToggle.classList.toggle('active');
+        navLinks.classList.toggle('mobile-active');
+        
+        // Prevenir scroll do body quando menu está aberto
+        if (navLinks.classList.contains('mobile-active')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Fechar menu ao clicar em um link
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          navMenuToggle.classList.remove('active');
+          navLinks.classList.remove('mobile-active');
+          document.body.style.overflow = '';
+        });
+      });
+      
+      // Fechar menu ao clicar fora
+      document.addEventListener('click', function(event) {
+        const isClickInsideNav = navLinks.contains(event.target) || navMenuToggle.contains(event.target);
+        if (!isClickInsideNav && navLinks.classList.contains('mobile-active')) {
+          navMenuToggle.classList.remove('active');
+          navLinks.classList.remove('mobile-active');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

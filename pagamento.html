@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Finalize seu pedido La Hamburguesa - Dados para pagamento e entrega. Formulário seguro e intuitivo.">
+  <meta name="keywords" content="pagamento, checkout, La Hamburguesa, finalizar pedido, dados pessoais">
+  <title>Pagamento - La Hamburguesa</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<script src="carrinho.js"></script>
+<body class="theme-spacex">
+  <nav class="spacex-nav" role="navigation" aria-label="Menu principal">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.svg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="cardapio.html">CARDÁPIO</a>
+        <a href="pedido.html">PEDIDO</a>
+        <a href="login.html">LOGIN</a>
+        <a href="cadastro.html">CADASTRO</a>
+      </div>
+      <button class="nav-menu-toggle" aria-label="Menu mobile">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main role="main">
+    <h2>Finalizar Pedido</h2>
+    
+    <!-- Resumo do Pedido -->
+    <div class="pedido-resumo">
+      <h3>📋 Resumo do Pedido</h3>
+      <div class="resumo-item">
+        <span>Carregando itens do carrinho...</span>
+        <span>R$ 0,00</span>
+      </div>
+      <div class="resumo-item total">
+        <span><strong>Total</strong></span>
+        <span><strong>R$ 0,00</strong></span>
+      </div>
+      <div id="resumo-pedido"></div>
+
+    </div>
+
+    <!-- Formulário de Pagamento -->
+    <form class="payment-form" id="paymentForm" role="form" aria-label="Formulário de pagamento">
+      
+      <!-- Dados Pessoais -->
+      <fieldset class="form-section">
+        <legend>👤 Dados Pessoais</legend>
+        <div class="form-group">
+          <label for="nome">Nome Completo *</label>
+          <input type="text" id="nome" name="nome" required aria-describedby="nome-error">
+          <span id="nome-error" class="error-message" aria-live="polite"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required aria-describedby="email-error">
+          <span id="email-error" class="error-message" aria-live="polite"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="telefone">Telefone *</label>
+          <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required aria-describedby="telefone-error">
+          <span id="telefone-error" class="error-message" aria-live="polite"></span>
+        </div>
+      </fieldset>
+
+      <!-- Endereço de Entrega -->
+      <fieldset class="form-section">
+        <legend>📍 Endereço de Entrega</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cep">CEP *</label>
+            <input type="text" id="cep" name="cep" placeholder="00000-000" required aria-describedby="cep-error">
+            <span id="cep-error" class="error-message" aria-live="polite"></span>
+          </div>
+          
+          <div class="form-group">
+            <label for="numero">Número *</label>
+            <input type="text" id="numero" name="numero" required aria-describedby="numero-error">
+            <span id="numero-error" class="error-message" aria-live="polite"></span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="endereco">Endereço *</label>
+          <input type="text" id="endereco" name="endereco" placeholder="Rua, Avenida..." required aria-describedby="endereco-error">
+          <span id="endereco-error" class="error-message" aria-live="polite"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="complemento">Complemento</label>
+          <input type="text" id="complemento" name="complemento" placeholder="Apartamento, casa, etc.">
+        </div>
+        
+        <div class="form-group">
+          <label for="bairro">Bairro *</label>
+          <input type="text" id="bairro" name="bairro" required aria-describedby="bairro-error">
+          <span id="bairro-error" class="error-message" aria-live="polite"></span>
+        </div>
+      </fieldset>
+
+      <!-- Forma de Pagamento -->
+      <fieldset class="form-section">
+        <legend>💳 Forma de Pagamento</legend>
+        <div class="payment-options">
+          <div class="payment-option">
+            <input type="radio" id="dinheiro" name="pagamento" value="dinheiro" required>
+            <label for="dinheiro">💰 Dinheiro</label>
+          </div>
+          
+          <div class="payment-option">
+            <input type="radio" id="cartao" name="pagamento" value="cartao" required>
+            <label for="cartao">💳 Cartão</label>
+          </div>
+          
+          <div class="payment-option">
+            <input type="radio" id="pix" name="pagamento" value="pix" required>
+            <label for="pix">📱 PIX</label>
+          </div>
+        </div>
+        
+        <!-- Campos específicos para cartão -->
+        <div id="cartao-fields" class="cartao-fields" style="display: none;">
+          <div class="form-group">
+            <label for="numero-cartao">Número do Cartão</label>
+            <input type="text" id="numero-cartao" name="numero-cartao" placeholder="0000 0000 0000 0000">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="validade">Validade</label>
+              <input type="text" id="validade" name="validade" placeholder="MM/AA">
+            </div>
+            
+            <div class="form-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" name="cvv" placeholder="000">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Observações -->
+      <fieldset class="form-section">
+        <legend>📝 Observações</legend>
+        <div class="form-group">
+          <label for="observacoes">Observações do Pedido</label>
+          <textarea id="observacoes" name="observacoes" rows="3" placeholder="Alguma observação especial para seu pedido?"></textarea>
+        </div>
+      </fieldset>
+
+      <!-- Botões -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" onclick="voltarCardapio()">Voltar ao Cardápio</button>
+        <button class="btn finalizar-btn" onclick="finalizarPedido()">
+          Finalizar Pedido
+      </button>
+      
+      </div>
+    </form>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© 2025 la hamburguesa — Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    // Carregar carrinho do localStorage
+    let cart = {};
+    let ingredients = {};
+    let cartTotal = 0;
+
+    function loadCart() {
+      const savedCart = localStorage.getItem('akwCart');
+      const savedIngredients = localStorage.getItem('akwIngredients');
+      
+      if (savedCart) {
+        cart = JSON.parse(savedCart);
+      }
+      
+      if (savedIngredients) {
+        ingredients = JSON.parse(savedIngredients);
+      }
+      
+      updateOrderSummary();
+    }
+
+    function updateOrderSummary() {
+      const resumoContainer = document.querySelector('.pedido-resumo');
+      const resumoItems = resumoContainer.querySelectorAll('.resumo-item:not(.total)');
+      
+      // Limpar itens existentes (exceto o total)
+      resumoItems.forEach(item => item.remove());
+      
+      cartTotal = 0;
+      
+      if (Object.keys(cart).length === 0) {
+        // Se não há itens no carrinho, mostrar mensagem e botão
+        const emptyItem = document.createElement('div');
+        emptyItem.className = 'resumo-item';
+        emptyItem.innerHTML = '<span>Nenhum item no carrinho</span><span>R$ 0,00</span>';
+        resumoContainer.insertBefore(emptyItem, resumoContainer.querySelector('.total'));
+        
+        // Adicionar botão para voltar ao cardápio
+        const backButton = document.createElement('div');
+        backButton.style.textAlign = 'center';
+        backButton.style.marginTop = '20px';
+        backButton.innerHTML = '<a href="cardapio.html" class="btn" style="display: inline-block;">🛒 Adicionar Itens ao Carrinho</a>';
+        resumoContainer.appendChild(backButton);
+      } else {
+        // Adicionar itens do carrinho
+        Object.keys(cart).forEach(id => {
+          const item = cart[id];
+          let itemTotal = item.price * item.quantity;
+          
+          // Adicionar custo dos ingredientes apenas se existirem e forem maiores que 0
+          if (ingredients[id]) {
+            Object.keys(ingredients[id]).forEach(ingredient => {
+              if (ingredients[id][ingredient].quantity > 0) {
+                itemTotal += ingredients[id][ingredient].quantity * ingredients[id][ingredient].price * item.quantity;
+              }
+            });
+          }
+          
+          cartTotal += itemTotal;
+          
+          const resumoItem = document.createElement('div');
+          resumoItem.className = 'resumo-item';
+          
+          // Criar lista de ingredientes apenas se existirem e forem maiores que 0
+          let ingredientsList = '';
+          if (ingredients[id]) {
+            Object.keys(ingredients[id]).forEach(ingredient => {
+              if (ingredients[id][ingredient].quantity > 0) {
+                ingredientsList += ` + ${ingredient}: ${ingredients[id][ingredient].quantity}x`;
+              }
+            });
+          }
+          
+          resumoItem.innerHTML = `
+            <span>${item.name} (${item.quantity}x)${ingredientsList}</span>
+            <span>R$ ${itemTotal.toFixed(2)}</span>
+          `;
+          
+          resumoContainer.insertBefore(resumoItem, resumoContainer.querySelector('.total'));
+        });
+      }
+      
+      // Atualizar total
+      const totalElement = resumoContainer.querySelector('.total span:last-child');
+      totalElement.innerHTML = `<strong>R$ ${cartTotal.toFixed(2)}</strong>`;
+    }
+
+    // Carregar carrinho quando a página carregar
+    document.addEventListener('DOMContentLoaded', loadCart);
+
+    // Validação do formulário
+    document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      if (validarFormulario()) {
+        // Coletar dados do formulário
+        const dadosPedido = {
+          nome: document.getElementById('nome').value,
+          email: document.getElementById('email').value,
+          telefone: document.getElementById('telefone').value,
+          cep: document.getElementById('cep').value,
+          endereco: document.getElementById('endereco').value,
+          numero: document.getElementById('numero').value,
+          complemento: document.getElementById('complemento').value,
+          bairro: document.getElementById('bairro').value,
+          pagamento: document.querySelector('input[name="pagamento"]:checked').value,
+          observacoes: document.getElementById('observacoes').value
+        };
+
+        // Mostrar loading
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Enviando...';
+        submitBtn.disabled = true;
+
+        try {
+          // Enviar email de confirmação
+          const emailEnviado = await enviarEmailConfirmacao(dadosPedido);
+          
+          if (emailEnviado) {
+            alert('✅ Pedido realizado com sucesso!\n📧 Um email de confirmação foi enviado para ' + dadosPedido.email + '\n\nVocê será redirecionado para acompanhar seu pedido.');
+            window.location.href = 'pedido.html';
+          } else {
+            alert('⚠️ Pedido realizado, mas houve um problema ao enviar o email de confirmação.\n\nVocê será redirecionado para acompanhar seu pedido.');
+            window.location.href = 'pedido.html';
+          }
+        } catch (error) {
+          console.error('Erro no processamento:', error);
+          alert('❌ Erro ao processar o pedido. Tente novamente.');
+        } finally {
+          // Restaurar botão
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      }
+    });
+
+    // Mostrar/ocultar campos do cartão
+    document.querySelectorAll('input[name="pagamento"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const cartaoFields = document.getElementById('cartao-fields');
+        if (this.value === 'cartao') {
+          cartaoFields.style.display = 'block';
+        } else {
+          cartaoFields.style.display = 'none';
+        }
+      });
+    });
+
+    // Máscaras de input
+    document.getElementById('telefone').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+      e.target.value = value;
+    });
+
+    document.getElementById('cep').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      value = value.replace(/^(\d{5})(\d{3}).*/, '$1-$2');
+      e.target.value = value;
+    });
+
+    document.getElementById('numero-cartao').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+      e.target.value = value;
+    });
+
+    document.getElementById('validade').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      value = value.replace(/^(\d{2})(\d{2}).*/, '$1/$2');
+      e.target.value = value;
+    });
+
+    function validarFormulario() {
+      let valido = true;
+      
+      // Verificar se há itens no carrinho
+      if (Object.keys(cart).length === 0) {
+        alert('❌ Seu carrinho está vazio! Adicione itens antes de finalizar o pedido.');
+        window.location.href = 'cardapio.html';
+        return false;
+      }
+      
+      // Limpar erros anteriores
+      document.querySelectorAll('.error-message').forEach(error => {
+        error.textContent = '';
+      });
+
+      // Validar campos obrigatórios
+      const camposObrigatorios = ['nome', 'email', 'telefone', 'cep', 'endereco', 'bairro', 'numero'];
+      
+      camposObrigatorios.forEach(campo => {
+        const input = document.getElementById(campo);
+        if (!input.value.trim()) {
+          mostrarErro(campo, 'Este campo é obrigatório');
+          valido = false;
+        }
+      });
+
+      // Validar email
+      const email = document.getElementById('email').value;
+      if (email && !validarEmail(email)) {
+        mostrarErro('email', 'E-mail inválido');
+        valido = false;
+      }
+
+      // Validar telefone
+      const telefone = document.getElementById('telefone').value;
+      if (telefone && telefone.length < 14) {
+        mostrarErro('telefone', 'Telefone inválido');
+        valido = false;
+      }
+
+      // Validar CEP
+      const cep = document.getElementById('cep').value;
+      if (cep && cep.length < 9) {
+        mostrarErro('cep', 'CEP inválido');
+        valido = false;
+      }
+
+      return valido;
+    }
+
+    // Função para enviar email de confirmação
+    async function enviarEmailConfirmacao(dadosPedido) {
+      try {
+        // Simular envio de email (em produção, usar um serviço real como EmailJS, SendGrid, etc.)
+        const emailData = {
+          to: dadosPedido.email,
+          subject: '🍔 Confirmação de Pedido - AKW Burguers',
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #111; color: #fff; padding: 20px;">
+              <div style="text-align: center; background-color: #d62828; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h1 style="color: #ffb703; margin: 0;">🍔 AKW Burguers</h1>
+                <p style="margin: 10px 0 0 0; font-size: 18px;">Confirmação de Pedido</p>
+              </div>
+              
+              <div style="background-color: #222; padding: 20px; border-radius: 10px; border: 1px solid #ffb703;">
+                <h2 style="color: #ffb703; margin-top: 0;">Olá, ${dadosPedido.nome}!</h2>
+                <p>Seu pedido foi confirmado com sucesso! 🎉</p>
+                
+                <h3 style="color: #ffb703;">📋 Resumo do Pedido:</h3>
+                <ul style="list-style: none; padding: 0;">
+                  ${Object.keys(cart).map(id => {
+                    const item = cart[id];
+                    let itemTotal = item.price * item.quantity;
+                    let ingredientsList = '';
+                    
+                    // Adicionar custo dos ingredientes apenas se existirem e forem maiores que 0
+                    if (ingredients[id]) {
+                      Object.keys(ingredients[id]).forEach(ingredient => {
+                        if (ingredients[id][ingredient].quantity > 0) {
+                          itemTotal += ingredients[id][ingredient].quantity * ingredients[id][ingredient].price * item.quantity;
+                          ingredientsList += ` + ${ingredient}: ${ingredients[id][ingredient].quantity}x`;
+                        }
+                      });
+                    }
+                    
+                    return `<li style="padding: 5px 0; border-bottom: 1px solid #333;">${item.name} (${item.quantity}x)${ingredientsList} - R$ ${itemTotal.toFixed(2)}</li>`;
+                  }).join('')}
+                  <li style="padding: 10px 0; font-weight: bold; font-size: 18px; color: #ffb703;">Total: R$ ${cartTotal.toFixed(2)}</li>
+                </ul>
+                
+                <h3 style="color: #ffb703;">📍 Endereço de Entrega:</h3>
+                <p>${dadosPedido.endereco}, ${dadosPedido.numero}<br>
+                ${dadosPedido.complemento ? dadosPedido.complemento + '<br>' : ''}
+                ${dadosPedido.bairro} - CEP: ${dadosPedido.cep}</p>
+                
+                <h3 style="color: #ffb703;">💳 Forma de Pagamento:</h3>
+                <p>${dadosPedido.pagamento === 'dinheiro' ? '💰 Dinheiro' : 
+                   dadosPedido.pagamento === 'cartao' ? '💳 Cartão' : '📱 PIX'}</p>
+                
+                ${dadosPedido.observacoes ? `
+                <h3 style="color: #ffb703;">📝 Observações:</h3>
+                <p>${dadosPedido.observacoes}</p>
+                ` : ''}
+                
+                <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #d62828; border-radius: 10px;">
+                  <h3 style="color: #ffb703; margin: 0;">⏰ Tempo Estimado de Entrega: 30-45 minutos</h3>
+                  <p style="margin: 10px 0 0 0;">Você pode acompanhar seu pedido em tempo real!</p>
+                </div>
+              </div>
+              
+              <div style="text-align: center; margin-top: 20px; padding: 15px; background-color: #222; border-radius: 10px;">
+                <p style="margin: 0; color: #ffb703;">📞 Dúvidas? Entre em contato: (11) 99999-9999</p>
+                <p style="margin: 5px 0 0 0; font-size: 14px;">© 2025 AKW Burguers - Todos os direitos reservados</p>
+              </div>
+            </div>
+          `
+        };
+
+        // Simular delay de envio
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        console.log('Email enviado com sucesso:', emailData);
+        return true;
+      } catch (error) {
+        console.error('Erro ao enviar email:', error);
+        return false;
+      }
+    }
+
+    function mostrarErro(campo, mensagem) {
+      const errorElement = document.getElementById(campo + '-error');
+      errorElement.textContent = mensagem;
+    }
+
+    function validarEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function voltarCardapio() {
+      window.location.href = 'cardapio.html';
+    }
+  </script>
+  <script src="carrinho.js"></script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+      renderizarCarrinho(); // ← ESSA FUNÇÃO MOSTRA O TOTAL
+  });
+  </script>
+  
+
+</body>
+</html>

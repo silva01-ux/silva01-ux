@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- Fundo preto -->
+  <rect width="400" height="400" fill="#000000"/>
+  
+  <!-- Grinalda decorativa - Folhas -->
+  <g id="wreath">
+    <!-- Folhas superiores -->
+    <path d="M 200 50 Q 180 60, 160 70 Q 150 80, 145 90 Q 140 100, 145 110 Q 150 120, 160 125 Q 170 130, 180 128 Q 190 126, 200 120" 
+          fill="#2d5016" stroke="#5C2C0C" stroke-width="1.5"/>
+    <path d="M 200 50 Q 220 60, 240 70 Q 250 80, 255 90 Q 260 100, 255 110 Q 250 120, 240 125 Q 230 130, 220 128 Q 210 126, 200 120" 
+          fill="#2d5016" stroke="#5C2C0C" stroke-width="1.5"/>
+    
+    <!-- Folhas laterais esquerda -->
+    <path d="M 100 120 Q 90 130, 85 145 Q 80 160, 88 170 Q 96 180, 110 178 Q 124 176, 130 165" 
+          fill="#3a6b1f" stroke="#5C2C0C" stroke-width="1.5"/>
+    <path d="M 100 200 Q 90 210, 88 225 Q 86 240, 95 250 Q 104 260, 118 258 Q 132 256, 140 245" 
+          fill="#2d5016" stroke="#5C2C0C" stroke-width="1.5"/>
+    
+    <!-- Folhas laterais direita -->
+    <path d="M 300 120 Q 310 130, 315 145 Q 320 160, 312 170 Q 304 180, 290 178 Q 276 176, 270 165" 
+          fill="#3a6b1f" stroke="#5C2C0C" stroke-width="1.5"/>
+    <path d="M 300 200 Q 310 210, 312 225 Q 314 240, 305 250 Q 296 260, 282 258 Q 268 256, 260 245" 
+          fill="#2d5016" stroke="#5C2C0C" stroke-width="1.5"/>
+    
+    <!-- Folhas inferiores -->
+    <path d="M 200 350 Q 180 340, 160 330 Q 150 320, 145 310 Q 140 300, 145 290 Q 150 280, 160 275 Q 170 270, 180 272 Q 190 274, 200 280" 
+          fill="#2d5016" stroke="#5C2C0C" stroke-width="1.5"/>
+    <path d="M 200 350 Q 220 340, 240 330 Q 250 320, 255 310 Q 260 300, 255 290 Q 250 280, 240 275 Q 230 270, 220 272 Q 210 274, 200 280" 
+          fill="#2d5016" stroke="#5C2C0C" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Flores grandes superiores -->
+  <g id="top-flowers">
+    <!-- Flor central superior -->
+    <circle cx="200" cy="80" r="18" fill="#FF8C33" stroke="#D9761C" stroke-width="2"/>
+    <circle cx="200" cy="80" r="10" fill="#D9761C"/>
+    <path d="M 200 62 L 195 75 L 185 70 L 195 80 L 185 90 L 195 85 L 200 98 L 205 85 L 215 90 L 205 80 L 215 70 L 205 75 Z" 
+          fill="#FF8C33" stroke="#D9761C" stroke-width="1"/>
+    
+    <!-- Flor esquerda -->
+    <circle cx="140" cy="100" r="15" fill="#FF8C33" stroke="#D9761C" stroke-width="2"/>
+    <circle cx="140" cy="100" r="8" fill="#D9761C"/>
+    <path d="M 140 85 L 136 95 L 128 92 L 136 100 L 128 108 L 136 105 L 140 115 L 144 105 L 152 108 L 144 100 L 152 92 L 144 95 Z" 
+          fill="#FF8C33" stroke="#D9761C" stroke-width="1"/>
+    
+    <!-- Flor direita -->
+    <circle cx="260" cy="100" r="15" fill="#FF8C33" stroke="#D9761C" stroke-width="2"/>
+    <circle cx="260" cy="100" r="8" fill="#D9761C"/>
+    <path d="M 260 85 L 256 95 L 248 92 L 256 100 L 248 108 L 256 105 L 260 115 L 264 105 L 272 108 L 264 100 L 272 92 L 264 95 Z" 
+          fill="#FF8C33" stroke="#D9761C" stroke-width="1"/>
+  </g>
+  
+  <!-- Flores pequenas laterais -->
+  <g id="side-flowers">
+    <!-- Flor esquerda -->
+    <path d="M 120 180 L 115 185 L 110 180 L 115 190 L 110 200 L 115 195 L 120 205 L 125 195 L 130 200 L 125 190 L 130 180 L 125 185 Z" 
+          fill="#FF8C33" stroke="#D9761C" stroke-width="1"/>
+    <circle cx="120" cy="190" r="4" fill="#D9761C"/>
+    
+    <!-- Flor direita -->
+    <path d="M 280 180 L 275 185 L 270 180 L 275 190 L 270 200 L 275 195 L 280 205 L 285 195 L 290 200 L 285 190 L 290 180 L 285 185 Z" 
+          fill="#FF8C33" stroke="#D9761C" stroke-width="1"/>
+    <circle cx="280" cy="190" r="4" fill="#D9761C"/>
+  </g>
+  
+  <!-- Hambúrguer central -->
+  <g id="burger">
+    <!-- Pão inferior -->
+    <ellipse cx="200" cy="250" rx="70" ry="25" fill="#FF8C33" stroke="#D9761C" stroke-width="2"/>
+    <ellipse cx="200" cy="250" rx="65" ry="20" fill="#FFB84D"/>
+    
+    <!-- Queijo -->
+    <ellipse cx="200" cy="220" rx="65" ry="8" fill="#FFD700" stroke="#D9761C" stroke-width="1.5"/>
+    
+    <!-- Carne -->
+    <ellipse cx="200" cy="200" rx="68" ry="15" fill="#5C2C0C" stroke="#3a1f0a" stroke-width="2"/>
+    <ellipse cx="200" cy="200" rx="60" ry="12" fill="#8B4513"/>
+    
+    <!-- Alface -->
+    <path d="M 135 185 Q 150 180, 165 185 Q 180 190, 195 185 Q 210 190, 225 185 Q 240 190, 255 185 Q 270 190, 265 185" 
+          fill="#228B22" stroke="#2d5016" stroke-width="1.5"/>
+    <path d="M 140 190 Q 155 185, 170 190 Q 185 195, 200 190 Q 215 195, 230 190 Q 245 195, 260 190" 
+          fill="#32CD32" stroke="#2d5016" stroke-width="1.5"/>
+    
+    <!-- Pão superior -->
+    <ellipse cx="200" cy="170" rx="70" ry="25" fill="#FF8C33" stroke="#D9761C" stroke-width="2"/>
+    <ellipse cx="200" cy="170" rx="65" ry="20" fill="#FFB84D"/>
+    
+    <!-- Sementes de gergelim -->
+    <ellipse cx="160" cy="160" rx="4" ry="2" fill="#5C2C0C" transform="rotate(-20 160 160)"/>
+    <ellipse cx="180" cy="155" rx="3" ry="2" fill="#5C2C0C" transform="rotate(15 180 155)"/>
+    <ellipse cx="200" cy="158" rx="4" ry="2" fill="#5C2C0C" transform="rotate(-10 200 158)"/>
+    <ellipse cx="220" cy="162" rx="3" ry="2" fill="#5C2C0C" transform="rotate(25 220 162)"/>
+    <ellipse cx="240" cy="160" rx="4" ry="2" fill="#5C2C0C" transform="rotate(-15 240 160)"/>
+  </g>
+  
+  <!-- Texto LA -->
+  <text x="200" y="300" font-family="Arial, sans-serif" font-size="28" font-weight="bold" 
+        fill="#FF8C33" text-anchor="middle" letter-spacing="3">
+    LA
+  </text>
+  
+  <!-- Decorações ao redor de LA -->
+  <circle cx="170" cy="295" r="2" fill="#FF8C33"/>
+  <circle cx="230" cy="295" r="2" fill="#FF8C33"/>
+  <path d="M 155 300 L 150 295 L 155 290" fill="#FF8C33" stroke="#FF8C33" stroke-width="1"/>
+  <path d="M 245 300 L 250 295 L 245 290" fill="#FF8C33" stroke="#FF8C33" stroke-width="1"/>
+  
+  <!-- Texto HAMBURGUESA -->
+  <text x="200" y="330" font-family="Arial, sans-serif" font-size="32" font-weight="bold" 
+        fill="#FF8C33" text-anchor="middle" letter-spacing="2">
+    HAMBURGUESA
+  </text>
+</svg>
+

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cadastre-se na La Hamburguesa - Crie sua conta para pedidos rápidos, histórico de pedidos e ofertas exclusivas.">
+  <meta name="keywords" content="cadastro, La Hamburguesa, conta, registro, criar conta">
+  <title>Cadastro - La Hamburguesa</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<script src="carrinho.js"></script>
+
+<body class="theme-spacex">
+  <nav class="spacex-nav" role="navigation" aria-label="Menu principal">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.svg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="cardapio.html">CARDÁPIO</a>
+        <a href="pedido.html">PEDIDO</a>
+        <a href="login.html">LOGIN</a>
+        <a href="cadastro.html">CADASTRO</a>
+      </div>
+      <button class="nav-menu-toggle" aria-label="Menu mobile">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main role="main">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h2>📝 Criar Conta</h2>
+          <p>Cadastre-se e aproveite pedidos mais rápidos</p>
+          <div class="register-info">
+            <p>🎉 Ao se cadastrar você ganha:</p>
+            <ul>
+              <li>🎁 10% de desconto no primeiro pedido</li>
+              <li>⭐ Pontos em cada compra</li>
+              <li>📱 Notificações de promoções</li>
+              <li>💳 Dados de pagamento salvos</li>
+              <li>🚀 Checkout mais rápido</li>
+              <li>📊 Acompanhamento de pedidos</li>
+            </ul>
+          </div>
+        </div>
+
+        <form class="auth-form" id="registerForm" role="form" aria-label="Formulário de cadastro">
+            <div class="form-group">
+              <label for="nome-cadastro">Nome Completo *</label>
+              <input type="text" id="nome-cadastro" name="nome" required aria-describedby="nome-cadastro-error" placeholder="Seu nome completo">
+              <span id="nome-cadastro-error" class="error-message" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email-cadastro">E-mail *</label>
+            <input type="email" id="email-cadastro" name="email" required aria-describedby="email-cadastro-error" placeholder="seu@email.com">
+            <span id="email-cadastro-error" class="error-message" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="senha-cadastro">Senha *</label>
+            <div class="password-input">
+              <input type="password" id="senha-cadastro" name="senha" required aria-describedby="senha-cadastro-error" placeholder="Mínimo 6 caracteres">
+              <button type="button" class="toggle-password" onclick="togglePassword('senha-cadastro')" aria-label="Mostrar/ocultar senha">
+                👁️
+              </button>
+            </div>
+            <span id="senha-cadastro-error" class="error-message" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmar-senha">Confirmar Senha *</label>
+            <div class="password-input">
+              <input type="password" id="confirmar-senha" name="confirmar-senha" required aria-describedby="confirmar-senha-error" placeholder="Digite a senha novamente">
+              <button type="button" class="toggle-password" onclick="togglePassword('confirmar-senha')" aria-label="Mostrar/ocultar senha">
+                👁️
+              </button>
+            </div>
+            <span id="confirmar-senha-error" class="error-message" aria-live="polite"></span>
+          </div>
+
+          <details class="form-details">
+            <summary>Adicionar informações opcionais</summary>
+            <div class="form-group">
+              <label for="telefone-cadastro">Telefone</label>
+              <input type="tel" id="telefone-cadastro" name="telefone" aria-describedby="telefone-cadastro-error" placeholder="(11) 99999-9999">
+              <span id="telefone-cadastro-error" class="error-message" aria-live="polite"></span>
+            </div>
+
+          <div class="form-group">
+            <label for="endereco-cadastro">Endereço Completo</label>
+            <textarea id="endereco-cadastro" name="endereco" rows="3" placeholder="Rua, número, bairro, cidade - CEP" aria-describedby="endereco-cadastro-error"></textarea>
+            <span id="endereco-cadastro-error" class="error-message" aria-live="polite"></span>
+          </div>
+          </details>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="aceitar-termos" name="aceitar-termos" required>
+              <span class="checkmark"></span>
+              Aceito os <a href="#" aria-label="Termos de uso">termos de uso</a> e <a href="#" aria-label="Política de privacidade">política de privacidade</a> *
+            </label>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="receber-ofertas" name="receber-ofertas">
+              <span class="checkmark"></span>
+              Quero receber ofertas e novidades por e-mail
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+            <span class="btn-text">Criar Conta</span>
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Já tem uma conta? <a href="login.html" aria-label="Fazer login">Faça login aqui</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© 2025 La Hamburguesa — Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    // Máscara para telefone
+    document.getElementById('telefone-cadastro').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+      e.target.value = value;
+    });
+
+    // Validação do formulário de cadastro
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (validarCadastro()) {
+        // Simular cadastro
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const originalText = btnText.textContent;
+        
+        submitBtn.classList.add('btn-loading');
+        btnText.textContent = 'Criando conta...';
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          submitBtn.classList.remove('btn-loading');
+          btnText.textContent = originalText;
+          submitBtn.disabled = false;
+          
+          alert('✅ Conta criada com sucesso!\n\nBem-vindo à La Hamburguesa! Você já pode fazer login.');
+          window.location.href = 'login.html';
+        }, 2000);
+      }
+    });
+
+    function validarCadastro() {
+      let valido = true;
+      
+      // Limpar erros anteriores
+      document.querySelectorAll('.error-message').forEach(error => {
+        error.textContent = '';
+      });
+
+      const nome = document.getElementById('nome-cadastro').value;
+      const telefone = document.getElementById('telefone-cadastro').value;
+      const email = document.getElementById('email-cadastro').value;
+      const senha = document.getElementById('senha-cadastro').value;
+      const confirmarSenha = document.getElementById('confirmar-senha').value;
+      const aceitarTermos = document.getElementById('aceitar-termos').checked;
+
+      // Validar nome
+      if (!nome.trim()) {
+        mostrarErro('nome-cadastro', 'Nome é obrigatório');
+        valido = false;
+      } else if (nome.trim().length < 2) {
+        mostrarErro('nome-cadastro', 'Nome deve ter pelo menos 2 caracteres');
+        valido = false;
+      }
+
+      // Validar telefone (opcional agora, mas se preenchido deve ser válido)
+      if (telefone.trim() && telefone.length < 14) {
+        mostrarErro('telefone-cadastro', 'Telefone inválido');
+        valido = false;
+      }
+
+      // Validar email
+      if (!email.trim()) {
+        mostrarErro('email-cadastro', 'E-mail é obrigatório');
+        valido = false;
+      } else if (!validarEmail(email)) {
+        mostrarErro('email-cadastro', 'E-mail inválido');
+        valido = false;
+      }
+
+      // Validar senha
+      if (!senha.trim()) {
+        mostrarErro('senha-cadastro', 'Senha é obrigatória');
+        valido = false;
+      } else if (senha.length < 6) {
+        mostrarErro('senha-cadastro', 'Senha deve ter pelo menos 6 caracteres');
+        valido = false;
+      }
+
+      // Validar confirmação de senha
+      if (!confirmarSenha.trim()) {
+        mostrarErro('confirmar-senha', 'Confirmação de senha é obrigatória');
+        valido = false;
+      } else if (senha !== confirmarSenha) {
+        mostrarErro('confirmar-senha', 'Senhas não coincidem');
+        valido = false;
+      }
+
+      // Validar termos
+      if (!aceitarTermos) {
+        alert('❌ Você deve aceitar os termos de uso para continuar');
+        valido = false;
+      }
+
+      return valido;
+    }
+
+    function mostrarErro(campo, mensagem) {
+      const errorElement = document.getElementById(campo + '-error');
+      errorElement.textContent = mensagem;
+    }
+
+    function validarEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function togglePassword(inputId) {
+      const input = document.getElementById(inputId);
+      const button = input.nextElementSibling;
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        button.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        button.textContent = '👁️';
+      }
+    }
+  </script>
+</body>
+</html>
+
