@@ -32,21 +32,42 @@ function loadCart() {
     cart = JSON.parse(localStorage.getItem("cart")) || [];
 }
 
+function animatePlusOne(buttonElement) {
+    const plusOne = document.createElement("span");
+    plusOne.classList.add("plus-one");
+    plusOne.textContent = "+1";
+
+    const rect = buttonElement.getBoundingClientRect();
+
+    plusOne.style.left = rect.left + rect.width / 2 + "px";
+    plusOne.style.top = rect.top - 10 + "px";
+
+    document.body.appendChild(plusOne);
+
+    setTimeout(() => {
+        plusOne.remove();
+    }, 900);
+}
+
 // ======= Funções públicas: adicionar / remover / alterar quantidade =======
 
-function addToCart(id, name, price, extras = []) {
+function addToCart(id, name, price, extras = [], buttonElement = null) {
+    loadCart();
     price = Number(price);
+
+    // animação +1
+    if (buttonElement) {
+        animatePlusOne(buttonElement);
+    }
+
     // Procurar item igual (mesmo id e mesmos extras)
-    // Consideramos itens com diferenças de extras como entradas separadas,
-    // a menos que extras stringifiquem igual.
     function extrasKey(ex) {
         if (!ex || ex.length === 0) return "";
-        // ordenar por id para consistência
         const copy = ex.map(e => ({...e})).sort((a,b)=>a.id.localeCompare(b.id));
         return JSON.stringify(copy);
     }
-    const key = extrasKey(extras);
 
+    const key = extrasKey(extras);
     let existing = cart.find(item => item.id === id && extrasKey(item.extras || []) === key);
 
     if (existing) {
@@ -63,41 +84,87 @@ function addToCart(id, name, price, extras = []) {
 
     saveCart();
     renderCartFloat();
+    // Atualizar contador na página se existir
+    updateQuantityDisplay(id);
+    
+    // Feedback visual - animar botão do carrinho
+    animateCartButton();
 }
 
 function removeFromCart(indexOrId) {
+    loadCart();
+    let itemId = null;
     if (typeof indexOrId === "number") {
+        if (cart[indexOrId]) {
+            itemId = cart[indexOrId].id;
+        }
         cart.splice(indexOrId, 1);
     } else {
+        itemId = indexOrId;
         cart = cart.filter(i => i.id !== indexOrId);
     }
     saveCart();
     renderCartFloat();
+    // Atualizar contador na página se existir
+    if (itemId) {
+        updateQuantityDisplay(itemId);
+    }
+}
+
+// Função para remover item do carrinho (usada no cardapio.html)
+function removeItem(id) {
+    loadCart();
+    // Remover todos os itens com esse ID
+    cart = cart.filter(i => i.id !== id);
+    saveCart();
+    renderCartFloat();
+    // Atualizar contador de quantidade
+    updateQuantityDisplay(id);
 }
 
 function changeQuantity(cartIndex, delta) {
+    loadCart();
     if (cart[cartIndex]) {
+        const itemId = cart[cartIndex].id;
         cart[cartIndex].quantity += delta;
         if (cart[cartIndex].quantity <= 0) {
             cart.splice(cartIndex, 1);
         }
         saveCart();
         renderCartFloat();
+        // Atualizar contador na página se existir
+        updateQuantityDisplay(itemId);
     }
 }
 
 // ======= Exclusivas para compatibilidade com o HTML existente =======
 // Seu HTML usa: addItem(id, name, price) para hambúrgueres
 // e addItemToCart(...) para acompanhamentos — vamos criar aliases
-function adicionarItem(id, name, price) {
+function adicionarItem(id, name, price, buttonElement = null) {
     // se houver extras temporários para este id, pega-os
     const extras = buildExtrasArrayFor(id);
-    addToCart(id, name, price, extras);
+    addToCart(id, name, price, extras, buttonElement);
     // limpar buffer desse produto
     clearExtrasBuffer(id);
+    // Atualizar contador de quantidade se existir
+    updateQuantityDisplay(id);
 }
-function addItem(id, name, price) { adicionarItem(id, name, price); }
-function addItemToCart(id, name, price) { adicionarItem(id, name, price); }
+
+// Função para atualizar exibição de quantidade
+function updateQuantityDisplay(id) {
+    const qtyEl = document.getElementById(`qty-${id}`);
+    if (qtyEl) {
+        loadCart();
+        const item = cart.find(i => i.id === id);
+        qtyEl.textContent = item ? item.quantity : "0";
+    }
+}
+function addItem(id, name, price, buttonElement = null) { 
+    adicionarItem(id, name, price, buttonElement); 
+}
+function addItemToCart(id, name, price, buttonElement = null) { 
+    adicionarItem(id, name, price, buttonElement); 
+}
 
 // ======= Extras (ingredientes) buffer management =======
 // Chamadas do HTML: addIngredient(productId, ingredientId, price) e removeIngredient(...)
@@ -105,6 +172,13 @@ function addIngredient(productId, ingredientId, price, displayName) {
     price = Number(price);
     extrasBuffer[productId] = extrasBuffer[productId] || {};
     extrasBuffer[productId][ingredientId] = (extrasBuffer[productId][ingredientId] || 0) + 1;
+    
+    // Armazenar preço do ingrediente
+    if (!ingredientPrices[productId]) {
+        ingredientPrices[productId] = {};
+    }
+    ingredientPrices[productId][ingredientId] = price;
+    
     updateIngredientDisplays(productId, ingredientId, displayName, price);
 }
 
@@ -119,6 +193,9 @@ function removeIngredient(productId, ingredientId, price, displayName) {
     updateIngredientDisplays(productId, ingredientId, displayName, price);
 }
 
+// Armazenar preços dos ingredientes quando adicionados
+const ingredientPrices = {}; // ingredientPrices[productId][ingredientId] = price
+
 function buildExtrasArrayFor(productId) {
     const obj = extrasBuffer[productId];
     if (!obj) return [];
@@ -126,12 +203,39 @@ function buildExtrasArrayFor(productId) {
     for (const ingId in obj) {
         const qty = obj[ingId];
         if (!qty || qty <= 0) continue;
-        // tentaremos capturar um nome e preço a partir do DOM se possível
-        // fallback genérico:
-        let name = ingId;
+        
+        // Tentar obter nome e preço
+        let name = ingId.charAt(0).toUpperCase() + ingId.slice(1); // Capitalizar primeira letra
         let price = 0;
-        // procurar um element com id pattern: `${ingId}-${productId}-price` ou similar
-        // (não obrigatório) — aqui mantemos preço passado nos handlers do HTML preferencialmente
+        
+        // Buscar preço armazenado
+        if (ingredientPrices[productId] && ingredientPrices[productId][ingId]) {
+            price = ingredientPrices[productId][ingId];
+        }
+        
+        // Tentar buscar do DOM como fallback
+        const priceEl = document.getElementById(`price-${ingId}-${productId}`);
+        if (priceEl && priceEl.dataset.price) {
+            price = Number(priceEl.dataset.price);
+        }
+        
+        // Mapear nomes mais amigáveis
+        const nameMap = {
+            'bacon': 'Bacon',
+            'queijo': 'Queijo Extra',
+            'tomate': 'Tomate',
+            'alface': 'Alface',
+            'cebola': 'Cebola',
+            'pimenta': 'Pimenta',
+            'jalapeno': 'Jalapeño',
+            'picles': 'Picles',
+            'abacate': 'Abacate'
+        };
+        
+        if (nameMap[ingId]) {
+            name = nameMap[ingId];
+        }
+        
         arr.push({ id: ingId, name, price: Number(price), qty });
     }
     return arr;
@@ -160,20 +264,25 @@ function updateIngredientDisplays(productId, ingredientId, displayName, unitPric
     // Atualiza total de extras visível (se existir element id ingredients-total-<productId>)
     const totEl = document.getElementById(`ingredients-total-${productId}`);
     if (totEl) {
-        // para calcular, tentamos somar preços. Mas como o HTML original passa unitPrice nos onclick,
-        // aqui precisamos que o onclick chame addIngredient(productId, ingId, price, 'Nome') com price.
-        // Vamos percorrer extrasBuffer[productId] e somar preços se disponíveis no dataset.
         let total = 0;
         for (const ing in extrasBuffer[productId]) {
             const q = extrasBuffer[productId][ing];
-            // tentar preço do DOM: elemento com id `price-${ing}-${productId}`
-            const priceEl = document.getElementById(`price-${ing}-${productId}`);
-            let p = unitPrice || 0;
-            if (priceEl && !isNaN(Number(priceEl.dataset.price))) p = Number(priceEl.dataset.price);
-            // se não houver priceEl, usamos the unitPrice passed for the last change (best effort)
+            // Buscar preço armazenado primeiro
+            let p = 0;
+            if (ingredientPrices[productId] && ingredientPrices[productId][ing]) {
+                p = ingredientPrices[productId][ing];
+            } else {
+                // Tentar buscar do DOM como fallback
+                const priceEl = document.getElementById(`price-${ing}-${productId}`);
+                if (priceEl && !isNaN(Number(priceEl.dataset.price))) {
+                    p = Number(priceEl.dataset.price);
+                } else if (unitPrice && ing === ingredientId) {
+                    p = unitPrice;
+                }
+            }
             total += (p * q);
         }
-        totEl.textContent = moeda(total);
+        totEl.textContent = moeda(total).replace('.', ',');
     }
 }
 
@@ -183,14 +292,32 @@ function renderCartFloat() {
     const container = document.getElementById("cartItems");
     const totalEl = document.getElementById("cartTotal");
     const countEl = document.getElementById("cartCount");
+    const cartHeaderTitle = document.querySelector('.cart-header-title h3');
 
     if (!container) return;
 
     container.innerHTML = "";
     if (!cart || cart.length === 0) {
-        container.innerHTML = "<p class='empty-cart'>Carrinho vazio</p>";
-        if (totalEl) totalEl.textContent = "0,00";
+        container.innerHTML = `
+            <div class="empty-cart">
+                <div style="text-align: center; padding: 40px 20px;">
+                    <div style="font-size: 3em; margin-bottom: 16px; opacity: 0.3;">🛒</div>
+                    <p style="font-size: 1em; color: #333; margin-bottom: 8px; font-weight: 600;">Seu carrinho está vazio</p>
+                    <p style="font-size: 0.9em; color: #999; margin-bottom: 24px;">Adicione itens deliciosos ao seu carrinho!</p>
+                    <a href="cardapio.html" class="btn" style="display: inline-block; text-decoration: none; max-width: 200px;">Ver Cardápio</a>
+                </div>
+            </div>
+        `;
+        if (totalEl) {
+            const totalSpan = totalEl.querySelector('span:last-child') || totalEl;
+            if (totalSpan === totalEl) {
+                totalEl.textContent = "R$ 0,00";
+            } else {
+                totalSpan.textContent = "R$ 0,00";
+            }
+        }
         if (countEl) countEl.textContent = "0";
+        if (cartHeaderTitle) cartHeaderTitle.setAttribute('data-count', '0');
         return;
     }
 
@@ -207,25 +334,48 @@ function renderCartFloat() {
         total += sub;
         count += it.quantity;
 
-        container.innerHTML += `
-            <div class="cart-item-row">
-                <div class="cart-item-name">
-                    <strong>${it.name}</strong>
-                    ${extrasHtml}
-                </div>
-                <div class="cart-item-controls">
-                    <button onclick="changeQuantity(${idx}, -1)" aria-label="Diminuir">-</button>
-                    <span>${it.quantity}</span>
-                    <button onclick="changeQuantity(${idx}, 1)" aria-label="Aumentar">+</button>
-                    <button onclick="removeFromCart(${idx})" aria-label="Remover">Remover</button>
-                </div>
-                <div class="cart-item-price">R$ ${moeda(sub)}</div>
+        const itemRow = document.createElement("div");
+        itemRow.className = "cart-item-row";
+        itemRow.innerHTML = `
+            <div class="cart-item-name">
+                <strong>${it.name}</strong>
+                ${extrasHtml}
             </div>
+            <div class="cart-item-controls">
+                <button onclick="changeQuantity(${idx}, -1)" aria-label="Diminuir quantidade">−</button>
+                <span>${it.quantity}</span>
+                <button onclick="changeQuantity(${idx}, 1)" aria-label="Aumentar quantidade">+</button>
+            </div>
+            <div class="cart-item-actions">
+                <button onclick="removeFromCart(${idx})" class="btn-remove" aria-label="Remover item" title="Remover item">🗑️</button>
+            </div>
+            <div class="cart-item-price">R$ ${moeda(sub)}</div>
         `;
+        container.appendChild(itemRow);
     });
 
-    if (totalEl) totalEl.textContent = moeda(total);
+    if (totalEl) {
+        const totalSpan = totalEl.querySelector('span:last-child') || totalEl;
+        if (totalSpan === totalEl) {
+            totalEl.textContent = moeda(total);
+        } else {
+            totalSpan.textContent = `R$ ${moeda(total)}`;
+        }
+    }
     if (countEl) countEl.textContent = String(count);
+    if (cartHeaderTitle) {
+        cartHeaderTitle.setAttribute('data-count', String(count));
+        // Atualizar também o span interno se existir
+        const cartHeaderCountSpan = document.getElementById('cartHeaderCount');
+        if (cartHeaderCountSpan) {
+            if (count > 0) {
+                cartHeaderCountSpan.textContent = count;
+                cartHeaderCountSpan.style.display = 'inline';
+            } else {
+                cartHeaderCountSpan.style.display = 'none';
+            }
+        }
+    }
 }
 
 // ======= RENDERIZAR RESUMO NA PÁGINA DE PAGAMENTO =======
@@ -266,34 +416,128 @@ function renderizarCarrinho() {
 // ======= Toggle visual do carrinho =======
 function toggleCart() {
     const el = document.getElementById("cartFloat");
+    const overlay = document.getElementById("cartOverlay");
+    const body = document.body;
+    
     if (!el) return;
-    el.classList.toggle("show");
+    
+    const isShowing = el.classList.contains("show");
+    
+    if (isShowing) {
+        // Fechar carrinho
+        el.classList.remove("show");
+        if (overlay) overlay.classList.remove("show");
+        if (body) body.style.overflow = "";
+    } else {
+        // Abrir carrinho
+        el.classList.add("show");
+        if (overlay) overlay.classList.add("show");
+        if (body) body.style.overflow = "hidden"; // Prevenir scroll do body
+        renderCartFloat(); // Garantir que o carrinho está atualizado
+    }
 }
 
 // ======= Finalizar pedido simples =======
 function finalizarPedido() {
-    // lógica básica: limpar carrinho e redirecionar
-    localStorage.removeItem("cart");
-    cart = [];
-    renderCartFloat();
-    alert("Pedido finalizado! Obrigado pela preferência.");
-    window.location.href = "index.html";
+    // Esta função não deve ser chamada diretamente - o formulário de pagamento cuida disso
+    // Mantida para compatibilidade
+    console.log("finalizarPedido chamado - redirecionando para pagamento");
+    window.location.href = "pagamento.html";
 }
+
+// ======= Disponibilizar funções globalmente ANTES do DOMContentLoaded =======
+// Isso garante que as funções estejam disponíveis quando o HTML as chamar
+window.adicionarItem = adicionarItem;
+window.addItem = addItem;
+window.addItemToCart = addItemToCart;
+window.addToCart = addToCart;
+window.removeFromCart = removeFromCart;
+window.removeItem = removeItem;
+window.changeQuantity = changeQuantity;
+window.addIngredient = addIngredient;
+window.removeIngredient = removeIngredient;
+window.renderizarCarrinho = renderizarCarrinho;
+window.toggleCart = toggleCart;
+window.finalizarPedido = finalizarPedido;
+window.animatePlusOne = animatePlusOne;
+window.moeda = moeda;
+window.updateQuantityDisplay = updateQuantityDisplay;
+
+// ======= Animação do botão do carrinho =======
+function animateCartButton() {
+    const cartButton = document.querySelector('.open-cart');
+    if (cartButton) {
+        cartButton.style.transform = 'scale(1.2) rotate(10deg)';
+        setTimeout(() => {
+            cartButton.style.transform = '';
+        }, 300);
+    }
+    
+    // Animar contador
+    const cartCount = document.getElementById('cartCount');
+    if (cartCount) {
+        cartCount.style.transform = 'scale(1.3)';
+        cartCount.style.color = '#FF4444';
+        setTimeout(() => {
+            cartCount.style.transform = '';
+            cartCount.style.color = '';
+        }, 300);
+    }
+}
+
+// ======= Fechar carrinho ao clicar fora =======
+document.addEventListener('click', function(event) {
+    const cartFloat = document.getElementById('cartFloat');
+    const openCartBtn = document.querySelector('.open-cart');
+    const cartOverlay = document.getElementById('cartOverlay');
+    
+    if (!cartFloat || !cartOverlay) return;
+    
+    const isClickInsideCart = cartFloat.contains(event.target);
+    const isClickOnCartButton = openCartBtn && openCartBtn.contains(event.target);
+    const isCartOpen = cartFloat.classList.contains('show');
+    
+    // Se clicou no overlay, fechar carrinho
+    if (event.target === cartOverlay && isCartOpen) {
+        toggleCart();
+    }
+});
+
+// ======= Fechar carrinho com ESC =======
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const cartFloat = document.getElementById('cartFloat');
+        if (cartFloat && cartFloat.classList.contains('show')) {
+            toggleCart();
+        }
+    }
+});
 
 // ======= Inicialização: alias e eventos =======
 document.addEventListener("DOMContentLoaded", function() {
-    // Aliases para compatibilidade com nomes antigos
-    window.adicionarItem = adicionarItem;
-    window.addItem = addItem;
-    window.addItemToCart = addItemToCart;
-    window.addToCart = addToCart; // novo
-    window.removeFromCart = removeFromCart;
-    window.changeQuantity = changeQuantity;
-    window.addIngredient = addIngredient;
-    window.removeIngredient = removeIngredient;
-    window.renderizarCarrinho = renderizarCarrinho;
-    window.toggleCart = toggleCart;
-    window.finalizarPedido = finalizarPedido;
-
+    loadCart();
     renderCartFloat();
+    
+    // Atualizar contadores de quantidade na página
+    if (cart && cart.length > 0) {
+        cart.forEach(item => {
+            updateQuantityDisplay(item.id);
+        });
+    }
+    
+    // Adicionar evento de scroll para fechar carrinho no mobile
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        const cartFloat = document.getElementById('cartFloat');
+        if (cartFloat && cartFloat.classList.contains('show')) {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (Math.abs(scrollTop - lastScrollTop) > 50) {
+                // Fechar carrinho apenas em mobile ao rolar
+                if (window.innerWidth <= 768) {
+                    toggleCart();
+                }
+            }
+            lastScrollTop = scrollTop;
+        }
+    });
 });

@@ -16,7 +16,7 @@
   <nav class="spacex-nav" role="navigation" aria-label="Menu principal">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">
-        <img src="logo.svg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="logo-img">
+        <img src="logo.svg2.jpg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="logo-img">
       </a>
       <div class="nav-links">
         <a href="cardapio.html">CARDÁPIO</a>
@@ -38,13 +38,9 @@
     <!-- Resumo do Pedido -->
     <div class="pedido-resumo">
       <h3>📋 Resumo do Pedido</h3>
-      <div class="resumo-item">
-        <span>Carregando itens do carrinho...</span>
-        <span>R$ 0,00</span>
-      </div>
+      
       <div class="resumo-item total">
-        <span><strong>Total</strong></span>
-        <span><strong>R$ 0,00</strong></span>
+        
       </div>
       <div id="resumo-pedido"></div>
 
@@ -116,17 +112,70 @@
         <div class="payment-options">
           <div class="payment-option">
             <input type="radio" id="dinheiro" name="pagamento" value="dinheiro" required>
-            <label for="dinheiro">💰 Dinheiro</label>
+            <label for="dinheiro">
+              <div class="payment-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+                  <line x1="7" y1="10" x2="7" y2="14"></line>
+                  <line x1="11" y1="10" x2="11" y2="14"></line>
+                  <line x1="15" y1="10" x2="15" y2="14"></line>
+                </svg>
+              </div>
+              <div class="payment-content">
+                <div class="payment-title">Dinheiro</div>
+                <div class="payment-subtitle">Pagamento na entrega</div>
+              </div>
+              <div class="payment-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            </label>
           </div>
           
           <div class="payment-option">
             <input type="radio" id="cartao" name="pagamento" value="cartao" required>
-            <label for="cartao">💳 Cartão</label>
+            <label for="cartao">
+              <div class="payment-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                  <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+              </div>
+              <div class="payment-content">
+                <div class="payment-title">Cartão</div>
+                <div class="payment-subtitle">Crédito ou Débito</div>
+              </div>
+              <div class="payment-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            </label>
           </div>
           
           <div class="payment-option">
             <input type="radio" id="pix" name="pagamento" value="pix" required>
-            <label for="pix">📱 PIX</label>
+            <label for="pix">
+              <div class="payment-icon pix-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <rect x="7" y="7" width="3" height="3"></rect>
+                  <rect x="14" y="7" width="3" height="3"></rect>
+                  <rect x="7" y="14" width="3" height="3"></rect>
+                  <rect x="14" y="14" width="3" height="3"></rect>
+                </svg>
+              </div>
+              <div class="payment-content">
+                <div class="payment-title">PIX</div>
+                <div class="payment-subtitle">Pagamento instantâneo</div>
+              </div>
+              <div class="payment-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            </label>
           </div>
         </div>
         
@@ -163,9 +212,9 @@
       <!-- Botões -->
       <div class="form-actions">
         <button type="button" class="btn btn-secondary" onclick="voltarCardapio()">Voltar ao Cardápio</button>
-        <button class="btn finalizar-btn" onclick="finalizarPedido()">
+        <button type="submit" class="btn finalizar-btn">
           Finalizar Pedido
-      </button>
+        </button>
       
       </div>
     </form>
@@ -294,12 +343,23 @@
           // Enviar email de confirmação
           const emailEnviado = await enviarEmailConfirmacao(dadosPedido);
           
+          // Enviar resumo para WhatsApp
+          await enviarResumoWhatsApp(dadosPedido);
+          
+          // Limpar carrinho após finalizar pedido
+          localStorage.removeItem('akwCart');
+          localStorage.removeItem('akwIngredients');
+          
           if (emailEnviado) {
-            alert('✅ Pedido realizado com sucesso!\n📧 Um email de confirmação foi enviado para ' + dadosPedido.email + '\n\nVocê será redirecionado para acompanhar seu pedido.');
-            window.location.href = 'pedido.html';
+            alert('✅ Pedido realizado com sucesso!\n📧 Um email de confirmação foi enviado para ' + dadosPedido.email + '\n📱 Resumo enviado para WhatsApp\n\nVocê será redirecionado para a página inicial.');
+            setTimeout(() => {
+              window.location.href = 'index.html';
+            }, 2000);
           } else {
-            alert('⚠️ Pedido realizado, mas houve um problema ao enviar o email de confirmação.\n\nVocê será redirecionado para acompanhar seu pedido.');
-            window.location.href = 'pedido.html';
+            alert('✅ Pedido realizado com sucesso!\n📱 Resumo enviado para WhatsApp\n\nVocê será redirecionado para a página inicial.');
+            setTimeout(() => {
+              window.location.href = 'index.html';
+            }, 2000);
           }
         } catch (error) {
           console.error('Erro no processamento:', error);
@@ -489,6 +549,74 @@
 
     function voltarCardapio() {
       window.location.href = 'cardapio.html';
+    }
+
+    // Função para enviar resumo para WhatsApp
+    async function enviarResumoWhatsApp(dadosPedido) {
+      try {
+        let mensagem = '🍔 *PEDIDO CONFIRMADO - LA HAMBURGUESA*\n\n';
+        mensagem += `👤 *Cliente:* ${dadosPedido.nome}\n`;
+        mensagem += `📞 *Telefone:* ${dadosPedido.telefone}\n`;
+        mensagem += `📧 *Email:* ${dadosPedido.email}\n\n`;
+        mensagem += '📋 *ITENS DO PEDIDO:*\n';
+        
+        Object.keys(cart).forEach(id => {
+          const item = cart[id];
+          let itemTotal = item.price * item.quantity;
+          let ingredientsList = '';
+          
+          if (ingredients[id]) {
+            Object.keys(ingredients[id]).forEach(ingredient => {
+              if (ingredients[id][ingredient].quantity > 0) {
+                itemTotal += ingredients[id][ingredient].quantity * ingredients[id][ingredient].price * item.quantity;
+                ingredientsList += `\n   + ${ingredient}: ${ingredients[id][ingredient].quantity}x`;
+              }
+            });
+          }
+          
+          mensagem += `\n${item.name} (${item.quantity}x)${ingredientsList}\n   R$ ${itemTotal.toFixed(2)}\n`;
+        });
+        
+        mensagem += `\n💰 *TOTAL: R$ ${cartTotal.toFixed(2)}*\n\n`;
+        mensagem += '📍 *ENDEREÇO DE ENTREGA:*\n';
+        mensagem += `${dadosPedido.endereco}, ${dadosPedido.numero}\n`;
+        if (dadosPedido.complemento) {
+          mensagem += `${dadosPedido.complemento}\n`;
+        }
+        mensagem += `${dadosPedido.bairro} - CEP: ${dadosPedido.cep}\n\n`;
+        
+        mensagem += '💳 *FORMA DE PAGAMENTO:*\n';
+        if (dadosPedido.pagamento === 'dinheiro') {
+          mensagem += '💰 Dinheiro\n';
+        } else if (dadosPedido.pagamento === 'cartao') {
+          mensagem += '💳 Cartão\n';
+        } else {
+          mensagem += '📱 PIX\n';
+        }
+        
+        if (dadosPedido.observacoes) {
+          mensagem += `\n📝 *OBSERVAÇÕES*\n${dadosPedido.observacoes}\n`;
+        }
+        
+        mensagem += `\n⏰ Pedido realizado em: ${new Date().toLocaleString('pt-BR')}`;
+        
+        // Codificar mensagem para URL
+        const mensagemEncoded = encodeURIComponent(mensagem);
+        
+        // Número do WhatsApp (formato internacional: 55 + DDD + número)
+        const whatsappNumber = '5598985133125';
+        
+        // Criar link do WhatsApp
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${mensagemEncoded}`;
+        
+        // Abrir WhatsApp em nova aba
+        window.open(whatsappUrl, '_blank');
+        
+        return Promise.resolve(true);
+      } catch (error) {
+        console.error('Erro ao enviar para WhatsApp:', error);
+        return Promise.resolve(false);
+      }
     }
   </script>
   <script src="carrinho.js"></script>

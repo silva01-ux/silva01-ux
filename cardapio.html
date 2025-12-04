@@ -9,27 +9,14 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Ranchers&display=swap" rel="stylesheet">
+  <script src="carrinho.js"></script>
 </head>
-
-
-<script>
-function addItemToCart(id, name, price) {
-    if (typeof adicionarItem === "function") {
-        adicionarItem(id, name, price);
-    } else {
-        alert("Erro: carrinho.js não encontrado ou não carregado.");
-    }
-}
-</script>
-
-<script src="carrinho.js"></script>
-
 <body class="theme-spacex">
   <nav class="spacex-nav" role="navigation" aria-label="Menu principal">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">
-        <img src="logo.svg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="logo-img">
+        <img src="logo.svg2.jpg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="logo-img">
       </a>
       <div class="nav-links">
         <a href="cardapio.html">CARDÁPIO</a>
@@ -46,9 +33,74 @@ function addItemToCart(id, name, price) {
   </nav>
 
   <main role="main">
+    <section class="menu-hero" aria-label="Destaques do cardápio">
+      <div class="menu-hero__content">
+        <div class="menu-logo-badge">
+          <img src="logo.svg2.jpg" alt="La Hamburguesa - Hambúrgueres Artesanais" class="menu-logo-img">
+          <div class="menu-logo-text">
+            <span class="menu-logo-line-1">La</span>
+            <span class="menu-logo-line-2">Hamburguesa</span>
+          </div>
+        </div>
+        <span class="hero-tag">Entrega média de 30 min</span>
+        <h1>Sabores artesanais com o calor de La Hamburguesa</h1>
+        <p>Escolha entre combinações clássicas, linha Terra e criações especiais com ingredientes selecionados diariamente.</p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>+120</strong>
+            <span>Combinações</span>
+          </div>
+          <div class="hero-stat">
+            <strong>4.9/5</strong>
+            <span>Avaliação média</span>
+          </div>
+          <div class="hero-stat">
+            <strong>24h</strong>
+            <span>Delivery ativo</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-hero__cards">
+        <div class="hero-feature-card">
+          <h4>Linha Terra</h4>
+          <p>Sabores intensos com toques defumados e ingredientes frescos.</p>
+        </div>
+        <div class="hero-feature-card">
+          <h4>Laranja-Vivo</h4>
+          <p>Nossos molhos exclusivos assinados pela cozinha da casa.</p>
+        </div>
+        <div class="hero-feature-card">
+          <h4>Marrom-Escuro</h4>
+          <p>Pães tostados, carnes suculentas e equilíbrio perfeito.</p>
+        </div>
+      </div>
+    </section>
+
     <div class="menu-header">
       <h2>🍔 Nosso Cardápio</h2>
       <p class="menu-intro">Descubra nossos hambúrgueres artesanais feitos com ingredientes frescos e selecionados. Cada hambúrguer é preparado com carinho e atenção aos detalhes para garantir o melhor sabor.</p>
+      
+      <!-- Barra de Pesquisa -->
+      <div class="search-container">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
+          <button class="search-clear" id="searchClear" aria-label="Limpar pesquisa" style="display: none;">×</button>
+        </div>
+        <div class="search-results-info" id="searchResultsInfo" style="display: none;"></div>
+      </div>
+      
+      <div class="menu-chip-bar" role="tablist" aria-label="Navegação rápida pelas categorias">
+        <button class="filter-chip active" data-target="hamburguers-title">Hambúrgueres</button>
+        <button class="filter-chip" data-target="acompanhamentos-title">Acompanhamentos</button>
+        <button class="filter-chip" data-target="bebidas-title">Bebidas</button>
+        <button class="filter-chip" data-target="sobremesas-title">Sobremesas</button>
+        <button class="filter-chip" data-target="molhos-title">Molhos</button>
+      </div>
+      
       <div class="menu-features">
         <div class="feature-badge">🥩 100% Artesanal</div>
         <div class="feature-badge">🌱 Ingredientes Frescos</div>
@@ -77,54 +129,55 @@ function addItemToCart(id, name, price) {
                 <div class="ingredient-item">
                   <span>🥓 Bacon</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-classico', 'bacon', 3)" aria-label="Remover bacon">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-classico', 'bacon', 3, 'Bacon')" aria-label="Remover bacon">-</button>
                     <span id="bacon-lahamburguesa-classico">0</span>
-                    <button onclick="addIngredient('lahamburguesa-classico', 'bacon', 3)" aria-label="Adicionar bacon">+</button>
+                    <button onclick="addIngredient('lahamburguesa-classico', 'bacon', 3, 'Bacon')" aria-label="Adicionar bacon">+</button>
+
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🧀 Queijo Extra</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-classico', 'queijo', 2)" aria-label="Remover queijo">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-classico', 'queijo', 2, 'Queijo Extra')" aria-label="Remover queijo">-</button>
                     <span id="queijo-lahamburguesa-classico">0</span>
-                    <button onclick="addIngredient('lahamburguesa-classico', 'queijo', 2)" aria-label="Adicionar queijo">+</button>
+                    <button onclick="addIngredient('lahamburguesa-classico', 'queijo', 2, 'Queijo Extra')" aria-label="Adicionar queijo">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🍅 Tomate</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-classico', 'tomate', 1)" aria-label="Remover tomate">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-classico', 'tomate', 1, 'Tomate')" aria-label="Remover tomate">-</button>
                     <span id="tomate-lahamburguesa-classico">0</span>
-                    <button onclick="addIngredient('lahamburguesa-classico', 'tomate', 1)" aria-label="Adicionar tomate">+</button>
+                    <button onclick="addIngredient('lahamburguesa-classico', 'tomate', 1, 'Tomate')" aria-label="Adicionar tomate">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🥬 Alface</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-classico', 'alface', 1)" aria-label="Remover alface">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-classico', 'alface', 1, 'Alface')" aria-label="Remover alface">-</button>
                     <span id="alface-lahamburguesa-classico">0</span>
-                    <button onclick="addIngredient('lahamburguesa-classico', 'alface', 1)" aria-label="Adicionar alface">+</button>
+                    <button onclick="addIngredient('lahamburguesa-classico', 'alface', 1, 'Alface')" aria-label="Adicionar alface">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🧅 Cebola</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-classico', 'cebola', 1)" aria-label="Remover cebola">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-classico', 'cebola', 1, 'Cebola')" aria-label="Remover cebola">-</button>
                     <span id="cebola-lahamburguesa-classico">0</span>
-                    <button onclick="addIngredient('lahamburguesa-classico', 'cebola', 1)" aria-label="Adicionar cebola">+</button>
+                    <button onclick="addIngredient('lahamburguesa-classico', 'cebola', 1, 'Cebola')" aria-label="Adicionar cebola">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🌶️ Pimenta</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-classico', 'pimenta', 2)" aria-label="Remover pimenta">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-classico', 'pimenta', 2, 'Pimenta')" aria-label="Remover pimenta">-</button>
                     <span id="pimenta-lahamburguesa-classico">0</span>
-                    <button onclick="addIngredient('lahamburguesa-classico', 'pimenta', 2)" aria-label="Adicionar pimenta">+</button>
+                    <button onclick="addIngredient('lahamburguesa-classico', 'pimenta', 2, 'Pimenta')" aria-label="Adicionar pimenta">+</button>
                   </div>
                 </div>
               </div>
@@ -159,54 +212,54 @@ function addItemToCart(id, name, price) {
                 <div class="ingredient-item">
                   <span>🥓 Bacon Extra</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-bacon', 'bacon', 3)" aria-label="Remover bacon">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-bacon', 'bacon', 3, 'Bacon Extra')" aria-label="Remover bacon">-</button>
                     <span id="bacon-lahamburguesa-bacon">0</span>
-                    <button onclick="addIngredient('lahamburguesa-bacon', 'bacon', 3)" aria-label="Adicionar bacon">+</button>
+                    <button onclick="addIngredient('lahamburguesa-bacon', 'bacon', 3, 'Bacon Extra')" aria-label="Adicionar bacon">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🧀 Queijo Cheddar</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-bacon', 'queijo', 2)" aria-label="Remover queijo">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-bacon', 'queijo', 2, 'Queijo Cheddar')" aria-label="Remover queijo">-</button>
                     <span id="queijo-lahamburguesa-bacon">0</span>
-                    <button onclick="addIngredient('lahamburguesa-bacon', 'queijo', 2)" aria-label="Adicionar queijo">+</button>
+                    <button onclick="addIngredient('lahamburguesa-bacon', 'queijo', 2, 'Queijo Cheddar')" aria-label="Adicionar queijo">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🧅 Cebola Caramelizada</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-bacon', 'cebola', 2)" aria-label="Remover cebola">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-bacon', 'cebola', 2, 'Cebola Caramelizada')" aria-label="Remover cebola">-</button>
                     <span id="cebola-lahamburguesa-bacon">0</span>
-                    <button onclick="addIngredient('lahamburguesa-bacon', 'cebola', 2)" aria-label="Adicionar cebola">+</button>
+                    <button onclick="addIngredient('lahamburguesa-bacon', 'cebola', 2, 'Cebola Caramelizada')" aria-label="Adicionar cebola">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🍅 Tomate</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-bacon', 'tomate', 1)" aria-label="Remover tomate">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-bacon', 'tomate', 1, 'Tomate')" aria-label="Remover tomate">-</button>
                     <span id="tomate-lahamburguesa-bacon">0</span>
-                    <button onclick="addIngredient('lahamburguesa-bacon', 'tomate', 1)" aria-label="Adicionar tomate">+</button>
+                    <button onclick="addIngredient('lahamburguesa-bacon', 'tomate', 1, 'Tomate')" aria-label="Adicionar tomate">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🥬 Alface</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-bacon', 'alface', 1)" aria-label="Remover alface">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-bacon', 'alface', 1, 'Alface')" aria-label="Remover alface">-</button>
                     <span id="alface-lahamburguesa-bacon">0</span>
-                    <button onclick="addIngredient('lahamburguesa-bacon', 'alface', 1)" aria-label="Adicionar alface">+</button>
+                    <button onclick="addIngredient('lahamburguesa-bacon', 'alface', 1, 'Alface')" aria-label="Adicionar alface">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🌶️ Pimenta</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-bacon', 'pimenta', 2)" aria-label="Remover pimenta">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-bacon', 'pimenta', 2, 'Pimenta')" aria-label="Remover pimenta">-</button>
                     <span id="pimenta-lahamburguesa-bacon">0</span>
-                    <button onclick="addIngredient('lahamburguesa-bacon', 'pimenta', 2)" aria-label="Adicionar pimenta">+</button>
+                    <button onclick="addIngredient('lahamburguesa-bacon', 'pimenta', 2, 'Pimenta')" aria-label="Adicionar pimenta">+</button>
                   </div>
                 </div>
               </div>
@@ -241,54 +294,54 @@ function addItemToCart(id, name, price) {
                 <div class="ingredient-item">
                   <span>🧀 Queijo Vegano</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-veggie', 'queijo', 2)" aria-label="Remover queijo">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-veggie', 'queijo', 2, 'Queijo Vegano')" aria-label="Remover queijo">-</button>
                     <span id="queijo-lahamburguesa-veggie">0</span>
-                    <button onclick="addIngredient('lahamburguesa-veggie', 'queijo', 2)" aria-label="Adicionar queijo">+</button>
+                    <button onclick="addIngredient('lahamburguesa-veggie', 'queijo', 2, 'Queijo Vegano')" aria-label="Adicionar queijo">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🍅 Tomate</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-veggie', 'tomate', 1)" aria-label="Remover tomate">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-veggie', 'tomate', 1, 'Tomate')" aria-label="Remover tomate">-</button>
                     <span id="tomate-lahamburguesa-veggie">0</span>
-                    <button onclick="addIngredient('lahamburguesa-veggie', 'tomate', 1)" aria-label="Adicionar tomate">+</button>
+                    <button onclick="addIngredient('lahamburguesa-veggie', 'tomate', 1, 'Tomate')" aria-label="Adicionar tomate">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🥬 Alface</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-veggie', 'alface', 1)" aria-label="Remover alface">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-veggie', 'alface', 1, 'Alface')" aria-label="Remover alface">-</button>
                     <span id="alface-lahamburguesa-veggie">0</span>
-                    <button onclick="addIngredient('lahamburguesa-veggie', 'alface', 1)" aria-label="Adicionar alface">+</button>
+                    <button onclick="addIngredient('lahamburguesa-veggie', 'alface', 1, 'Alface')" aria-label="Adicionar alface">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🧅 Cebola</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-veggie', 'cebola', 1)" aria-label="Remover cebola">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-veggie', 'cebola', 1, 'Cebola')" aria-label="Remover cebola">-</button>
                     <span id="cebola-lahamburguesa-veggie">0</span>
-                    <button onclick="addIngredient('lahamburguesa-veggie', 'cebola', 1)" aria-label="Adicionar cebola">+</button>
+                    <button onclick="addIngredient('lahamburguesa-veggie', 'cebola', 1, 'Cebola')" aria-label="Adicionar cebola">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🥒 Picles</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-veggie', 'picles', 1)" aria-label="Remover picles">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-veggie', 'picles', 1, 'Picles')" aria-label="Remover picles">-</button>
                     <span id="picles-lahamburguesa-veggie">0</span>
-                    <button onclick="addIngredient('lahamburguesa-veggie', 'picles', 1)" aria-label="Adicionar picles">+</button>
+                    <button onclick="addIngredient('lahamburguesa-veggie', 'picles', 1, 'Picles')" aria-label="Adicionar picles">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🥑 Abacate</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-veggie', 'abacate', 3)" aria-label="Remover abacate">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-veggie', 'abacate', 3, 'Abacate')" aria-label="Remover abacate">-</button>
                     <span id="abacate-lahamburguesa-veggie">0</span>
-                    <button onclick="addIngredient('lahamburguesa-veggie', 'abacate', 3)" aria-label="Adicionar abacate">+</button>
+                    <button onclick="addIngredient('lahamburguesa-veggie', 'abacate', 3, 'Abacate')" aria-label="Adicionar abacate">+</button>
                   </div>
                 </div>
               </div>
@@ -323,54 +376,54 @@ function addItemToCart(id, name, price) {
                 <div class="ingredient-item">
                   <span>🌶️ Jalapeño</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-picante', 'jalapeno', 2)" aria-label="Remover jalapeño">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-picante', 'jalapeno', 2, 'Jalapeño')" aria-label="Remover jalapeño">-</button>
                     <span id="jalapeno-lahamburguesa-picante">0</span>
-                    <button onclick="addIngredient('lahamburguesa-picante', 'jalapeno', 2)" aria-label="Adicionar jalapeño">+</button>
+                    <button onclick="addIngredient('lahamburguesa-picante', 'jalapeno', 2, 'Jalapeño')" aria-label="Adicionar jalapeño">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🧀 Queijo Jalapeño</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-picante', 'queijo', 2)" aria-label="Remover queijo">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-picante', 'queijo', 2, 'Queijo Jalapeño')" aria-label="Remover queijo">-</button>
                     <span id="queijo-lahamburguesa-picante">0</span>
-                    <button onclick="addIngredient('lahamburguesa-picante', 'queijo', 2)" aria-label="Adicionar queijo">+</button>
+                    <button onclick="addIngredient('lahamburguesa-picante', 'queijo', 2, 'Queijo Jalapeño')" aria-label="Adicionar queijo">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🧅 Cebola Roxa</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-picante', 'cebola', 1)" aria-label="Remover cebola">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-picante', 'cebola', 1, 'Cebola Roxa')" aria-label="Remover cebola">-</button>
                     <span id="cebola-lahamburguesa-picante">0</span>
-                    <button onclick="addIngredient('lahamburguesa-picante', 'cebola', 1)" aria-label="Adicionar cebola">+</button>
+                    <button onclick="addIngredient('lahamburguesa-picante', 'cebola', 1, 'Cebola Roxa')" aria-label="Adicionar cebola">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🍅 Tomate</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-picante', 'tomate', 1)" aria-label="Remover tomate">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-picante', 'tomate', 1, 'Tomate')" aria-label="Remover tomate">-</button>
                     <span id="tomate-lahamburguesa-picante">0</span>
-                    <button onclick="addIngredient('lahamburguesa-picante', 'tomate', 1)" aria-label="Adicionar tomate">+</button>
+                    <button onclick="addIngredient('lahamburguesa-picante', 'tomate', 1, 'Tomate')" aria-label="Adicionar tomate">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🥬 Alface</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-picante', 'alface', 1)" aria-label="Remover alface">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-picante', 'alface', 1, 'Alface')" aria-label="Remover alface">-</button>
                     <span id="alface-lahamburguesa-picante">0</span>
-                    <button onclick="addIngredient('lahamburguesa-picante', 'alface', 1)" aria-label="Adicionar alface">+</button>
+                    <button onclick="addIngredient('lahamburguesa-picante', 'alface', 1, 'Alface')" aria-label="Adicionar alface">+</button>
                   </div>
                 </div>
                 
                 <div class="ingredient-item">
                   <span>🥓 Bacon</span>
                   <div class="ingredient-controls">
-                    <button onclick="removeIngredient('lahamburguesa-picante', 'bacon', 3)" aria-label="Remover bacon">-</button>
+                    <button onclick="removeIngredient('lahamburguesa-picante', 'bacon', 3, 'Bacon')" aria-label="Remover bacon">-</button>
                     <span id="bacon-lahamburguesa-picante">0</span>
-                    <button onclick="addIngredient('lahamburguesa-picante', 'bacon', 3)" aria-label="Adicionar bacon">+</button>
+                    <button onclick="addIngredient('lahamburguesa-picante', 'bacon', 3, 'Bacon')" aria-label="Adicionar bacon">+</button>
                   </div>
                 </div>
               </div>
@@ -457,9 +510,9 @@ function addItemToCart(id, name, price) {
             <h4>Refrigerante Lata</h4>
             <p>Coca-Cola, Guaraná, Fanta, Sprite - 350ml</p>
             <p class="price">R$ 6,00</p>
-            <button class="btn" onclick="addItemToCart('refri-lata', 'Refrigerante Lata', 6.00)">
+            <button class="btn" onclick="adicionarItem('coca','Coca-Cola',6, this); animatePlusOne(this)">
               Adicionar ao Carrinho
-          </button>
+            </button>
           
           </div>
         </article>
@@ -486,9 +539,9 @@ function addItemToCart(id, name, price) {
             <h4>Milkshake</h4>
             <p>Chocolate, Morango, Baunilha - 400ml</p>
             <p class="price">R$ 12,00</p>
-            <button class="btn" onclick="addItemToCart('chocolate', 'Morango' , 'baunilha','milkshake' 8.00)">
+            <button class="btn" onclick="addItemToCart('milkshake', 'Milkshake', 12.00)">
               Adicionar ao Carrinho
-          </button>
+            </button>
           
           </div>
         </article>
@@ -501,8 +554,9 @@ function addItemToCart(id, name, price) {
             <h4>Coca-Cola</h4>
             <p>Refrigerante gelado 350ml</p>
             <p class="price">R$ 6,00</p>
-            <button class="btn" onclick="adicionarItem('coca', 'Coca-Cola', 6)">Adicionar ao Carrinho</button>
-
+            <button class="btn" onclick="adicionarItem('coca','Coca-Cola',6, this)">
+              Adicionar ao Carrinho
+            </button>
           </div>
         </article>
 
@@ -566,7 +620,7 @@ function addItemToCart(id, name, price) {
             <h4>Suco de Limão</h4>
             <p>Suco natural de limão com hortelã</p>
             <p class="price">R$ 7,00</p>
-            <button class="btn" onclick="adicionarItem('suco-limao', 'Suco de Limão', 8)">Adicionar ao Carrinho</button>
+            <button class="btn" onclick="adicionarItem('suco-limao', 'Suco de Limão', 7)">Adicionar ao Carrinho</button>
 
           </div>
         </article>
@@ -598,7 +652,7 @@ function addItemToCart(id, name, price) {
             <p>Brownie quentinho com sorvete de baunilha e calda de chocolate.</p>
             <p class="price">R$ 16,00</p>
             
-            <button class="btn" onclick="adicionarItem('brownie', 'Brownie com Sorvete', 14)">Adicionar ao Carrinho</button>
+            <button class="btn" onclick="adicionarItem('brownie', 'Brownie com Sorvete', 16)">Adicionar ao Carrinho</button>
             
           </div>
         </article>
@@ -611,7 +665,7 @@ function addItemToCart(id, name, price) {
             <h4>Açaí na Tigela</h4>
             <p>Açaí cremoso com granola, banana e mel.</p>
             <p class="price">R$ 14,00</p>
-            <button class="btn" onclick="adicionarItem('acai', 'Açaí na Tigela', 18)">Adicionar ao Carrinho</button>
+            <button class="btn" onclick="adicionarItem('acai', 'Açaí na Tigela', 14)">Adicionar ao Carrinho</button>
 
           </div>
         </article>
@@ -630,7 +684,7 @@ function addItemToCart(id, name, price) {
             <h4>Molho Especial La Hamburguesa</h4>
             <p>Nosso molho secreto exclusivo que acompanha todos os hambúrgueres. Preparado com ingredientes selecionados e receita única da casa.</p>
             <p class="price">R$ 3,00</p>
-            <button class="btn" onclick="adicionarItem('molho-especial', 'Molho Especial La Hamburguesa', 4)">Adicionar ao Carrinho</button>
+            <button class="btn" onclick="adicionarItem('molho-especial', 'Molho Especial La Hamburguesa', 3)">Adicionar ao Carrinho</button>
 
           </div>
         </article>
@@ -651,39 +705,274 @@ function addItemToCart(id, name, price) {
     </section>
   </main>
 
+  <!-- Overlay do carrinho -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
   <!-- Carrinho Flutuante -->
   <div class="cart-float" id="cartFloat">
-    <h3>Seu Carrinho</h3>
+    <div class="cart-header">
+      <div class="cart-header-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <h3 data-count="0">Carrinho <span id="cartHeaderCount" style="display: none;"></span></h3>
+      </div>
+      <button class="close-cart" onclick="toggleCart()" aria-label="Fechar carrinho">×</button>
+    </div>
 
-    <div id="cartItems"></div>
+    <div class="cart-items" id="cartItems">
+      <!-- Itens serão inseridos aqui -->
+    </div>
 
-    <p class="total">Total: R$ <span id="cartTotal">0,00</span></p>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">R$ 0,00</span>
+      </div>
+      <a href="pagamento.html" class="btn finalizar-cart-btn">
+        Finalizar Pedido →
+      </a>
+      <button class="btn btn-secondary close-cart" onclick="toggleCart()">Continuar Comprando</button>
+    </div>
+  </div>
 
-    <!-- BOTÃO NOVO -->
-    <a href="pagamento.html" class="btn finalizar-cart-btn">
-        Finalizar Pedido
-    </a>
-
-    <button class="btn close-cart" onclick="toggleCart()">Fechar</button>
-</div>
-
-<!-- Botão flutuante para abrir o carrinho -->
-<button class="open-cart" onclick="toggleCart()">
-    🛒 Carrinho <span id="cartCount">0</span>
-</button>
-
-
-  <!-- Botão do Carrinho -->
-  <button class="cart-toggle" onclick="toggleCart()" aria-label="Abrir carrinho">
-    🛒 <span id="cartCount">0</span>
+  <!-- Botão flutuante para abrir o carrinho -->
+  <button class="open-cart" onclick="toggleCart()" aria-label="Abrir carrinho">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="21" r="1"></circle>
+      <circle cx="20" cy="21" r="1"></circle>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
   </button>
-
-  <footer role="contentinfo">
-    <p>© 2025 La Hamburguesa — Todos os direitos reservados</p>
+  
+  <footer class="spacex-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="cardapio.html">CARDÁPIO</a>
+        <a href="pedido.html">PEDIDO</a>
+        <a href="login.html">LOGIN</a>
+        <a href="cadastro.html">CADASTRO</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/lah.amburguesa?igsh=MTBja2NuYTYzbHExeQ==" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          Instagram
+        </a>
+        <a href="https://wa.me/5598985133125" target="_blank" rel="noopener noreferrer" class="social-icon whatsapp" aria-label="WhatsApp">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          WhatsApp
+        </a>
+      </div>
+      <p class="footer-copyright">© 2025 La Hamburguesa — Todos os direitos reservados</p>
+    </div>
   </footer>
+  <script>
+    // Função para animação +1 (já existe no carrinho.js, mas mantemos aqui como fallback)
+    function showPlusOne(button) {
+      if (typeof animatePlusOne === 'function') {
+        animatePlusOne(button);
+      } else {
+        const plus = document.createElement("span");
+        plus.classList.add("plus-one");
+        plus.innerText = "+1";
+        
+        const rect = button.getBoundingClientRect();
+        
+        plus.style.left = rect.left + rect.width / 2 + "px";
+        plus.style.top = rect.top - 10 + "px";
+        
+        document.body.appendChild(plus);
+        
+        setTimeout(() => plus.remove(), 700);
+      }
+    }
+    
+    function animatePlusOne(button) {
+      showPlusOne(button);
+    }
+    
+    // Garantir que as funções estejam disponíveis globalmente
+    window.showPlusOne = showPlusOne;
+    window.animatePlusOne = animatePlusOne;
 
-  <script src="js/ingredients.js"></script>
-  <script src="js/cart.js"></script>
-  <button onclick="adicionarItem('coca', 'Coca-Cola Lata', 6.00)">Adicionar</button>
+    // ===== SISTEMA DE PESQUISA DE PRODUTOS =====
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+      const searchClear = document.getElementById('searchClear');
+      const searchResultsInfo = document.getElementById('searchResultsInfo');
+      const menuItems = document.querySelectorAll('.menu-item');
+      const menuCategories = document.querySelectorAll('.menu-category');
+      const filterChips = document.querySelectorAll('.filter-chip');
+      const chipMap = {};
 
+      filterChips.forEach(chip => {
+        const target = chip.dataset.target;
+        if (target) {
+          chipMap[target] = chip;
+        }
+      });
+
+      function setActiveChip(targetId) {
+        filterChips.forEach(chip => {
+          chip.classList.toggle('active', chip.dataset.target === targetId);
+        });
+      }
+
+      function highlightCategory(targetId) {
+        const heading = document.getElementById(targetId);
+        if (heading) {
+          heading.classList.add('highlight');
+          setTimeout(() => heading.classList.remove('highlight'), 1200);
+        }
+      }
+
+      filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const targetId = chip.dataset.target;
+          setActiveChip(targetId);
+          const heading = document.getElementById(targetId);
+          if (heading) {
+            heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            highlightCategory(targetId);
+          }
+        });
+      });
+
+      if (!searchInput) return;
+
+      // Função para pesquisar produtos
+      function pesquisarProdutos(termo) {
+        const termoLower = termo.toLowerCase().trim();
+        let resultadosEncontrados = 0;
+        let categoriasComResultados = new Set();
+
+        if (termoLower === '') {
+          // Mostrar todos os produtos
+          menuItems.forEach(item => {
+            item.classList.remove('hidden');
+            item.style.display = '';
+          });
+          menuCategories.forEach(category => {
+            category.style.display = '';
+          });
+          searchResultsInfo.style.display = 'none';
+          searchClear.style.display = 'none';
+        setActiveChip('hamburguers-title');
+        highlightCategory('hamburguers-title');
+          return;
+        }
+
+        let primeiraCategoriaVisivel = null;
+
+        // Pesquisar em cada item
+        menuItems.forEach(item => {
+          const nome = item.querySelector('h4')?.textContent.toLowerCase() || '';
+          const descricao = item.querySelector('.item-content p')?.textContent.toLowerCase() || '';
+          const categoria = item.closest('.menu-category')?.querySelector('.category-title')?.textContent.toLowerCase() || '';
+          
+          const corresponde = nome.includes(termoLower) || 
+                            descricao.includes(termoLower) || 
+                            categoria.includes(termoLower);
+
+          if (corresponde) {
+            item.classList.remove('hidden');
+            item.style.display = '';
+            resultadosEncontrados++;
+            
+            // Marcar categoria como tendo resultados
+            const categoriaElement = item.closest('.menu-category');
+            if (categoriaElement) {
+              categoriasComResultados.add(categoriaElement);
+            }
+          } else {
+            item.classList.add('hidden');
+            item.style.display = 'none';
+          }
+        });
+
+        // Ocultar categorias sem resultados
+        menuCategories.forEach(category => {
+          const temResultados = Array.from(category.querySelectorAll('.menu-item')).some(
+            item => !item.classList.contains('hidden')
+          );
+          
+          if (!temResultados) {
+            category.style.display = 'none';
+          } else {
+            category.style.display = '';
+            if (!primeiraCategoriaVisivel) {
+              const heading = category.querySelector('.category-title');
+              if (heading) {
+                primeiraCategoriaVisivel = heading.id;
+              }
+            }
+          }
+        });
+
+        // Mostrar informações de resultados
+        if (termoLower !== '') {
+          searchClear.style.display = 'flex';
+          
+          if (resultadosEncontrados === 0) {
+            searchResultsInfo.style.display = 'block';
+            searchResultsInfo.innerHTML = `
+              <span>🔍 Nenhum produto encontrado para "<strong>${termo}</strong>"</span>
+            `;
+            searchResultsInfo.style.backgroundColor = 'rgba(255, 68, 68, 0.1)';
+            searchResultsInfo.style.color = '#FF4444';
+          } else {
+            searchResultsInfo.style.display = 'block';
+            searchResultsInfo.innerHTML = `
+              <span>🔍 Encontrados <strong>${resultadosEncontrados}</strong> produto(s) para "<strong>${termo}</strong>"</span>
+            `;
+            searchResultsInfo.style.backgroundColor = 'rgba(255, 140, 51, 0.1)';
+            searchResultsInfo.style.color = 'var(--marrom-escuro)';
+          }
+        } else {
+          searchResultsInfo.style.display = 'none';
+        }
+
+        if (primeiraCategoriaVisivel) {
+          setActiveChip(primeiraCategoriaVisivel);
+          highlightCategory(primeiraCategoriaVisivel);
+        }
+      }
+
+      // Event listener para input de pesquisa
+      searchInput.addEventListener('input', function(e) {
+        pesquisarProdutos(e.target.value);
+      });
+
+      // Event listener para botão limpar
+      searchClear.addEventListener('click', function() {
+        searchInput.value = '';
+        pesquisarProdutos('');
+        searchInput.focus();
+      });
+
+      // Pesquisa ao pressionar Enter
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          pesquisarProdutos(e.target.value);
+        }
+      });
+
+      // Focar no campo de pesquisa com Ctrl+F ou Cmd+F
+      document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+    });
+  </script>
+    
+  
 </body>
